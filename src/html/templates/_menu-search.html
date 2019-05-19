@@ -1,0 +1,112 @@
+<div class="mdl-layout-icon" id="wdm-app-icon">
+    <a href="#" ng-click="$app.clickOnNavBar()"><img src="/static/web/img/windmobile.png"></a>
+</div>
+<div class="mdl-layout__header-row">
+    <span id="wdm-app-title" class="mdl-layout-title mdl-layout--large-screen-only" ng-click="$app.clickOnNavBar()">winds.mobi</span>
+    <div id="wdm-search-field-parent" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label">
+        <label class="mdl-button mdl-js-button mdl-button--accent mdl-button--icon" for="wdm-search-field">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+            <form>
+                <input id="wdm-search-field" class="mdl-textfield__input" type="text" name="search" ng-model="main.search" ng-change="main.doSearch()"
+                       spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+            </form>
+        </div>
+    </div>
+    <button class="mdl-button mdl-js-button mdl-button--accent mdl-button--icon" ng-click="main.clearSearch()" ng-show="main.search">
+        <i class="material-icons">clear</i>
+    </button>
+    <div class="mdl-layout-spacer"></div>
+    <nav class="mdl-navigation">
+        <!-- Action center small -->
+        <button class="mdl-layout--small-screen-only mdl-button mdl-js-button mdl-button--accent mdl-button--icon wdm-small-action-btn" ng-click="main.clickOnGeoLocation()"
+                ng-disabled="main.geoStatus === -2">
+            <span ng-switch="main.geoStatus">
+                <i ng-switch-when="2" class="material-icons">gps_fixed</i>
+                <i ng-switch-when="1" class="material-icons blink">location_searching</i>
+                <i ng-switch-when="0" class="material-icons">gps_not_fixed</i>
+                <i ng-switch-when="-1" class="material-icons">gps_not_fixed</i>
+                <i ng-switch-when="-2" class="material-icons">location_disabled</i>
+            </span>
+        </button>
+        <!-- Action center large -->
+        <button class="mdl-layout--large-screen-only mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect" ng-click="main.clickOnGeoLocation()"
+                ng-disabled="main.geoStatus === -2">
+            <span ng-switch="main.geoStatus">
+                <i ng-switch-when="2" class="material-icons">gps_fixed</i>
+                <i ng-switch-when="1" class="material-icons blink">location_searching</i>
+                <i ng-switch-when="0" class="material-icons">gps_not_fixed</i>
+                <i ng-switch-when="-1" class="material-icons">gps_not_fixed</i>
+                <i ng-switch-when="-2" class="material-icons">location_disabled</i>
+            </span>
+            <span translate>Center</span>
+        </button>
+        <div ng-if="$root.controller == 'list'">
+            <!-- Favorites small -->
+            <button class="mdl-layout--small-screen-only mdl-button mdl-js-button mdl-button--accent mdl-button--icon wdm-small-action-btn" ng-click="main.toogleFavorites()">
+              <i class="material-icons">{{ main.favoritesIcons[main.listFavorites]}}</i>
+            </button>
+            <!-- Favorites large -->
+            <button class="mdl-layout--large-screen-only mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect" ng-click="main.toogleFavorites()">
+              <i class="material-icons">{{ main.favoritesIcons[main.listFavorites]}}</i>
+                <span translate>Favorites</span>
+            </button>
+        </div>
+        <div ng-if="$root.controller == 'list'">
+            <!-- Action map small -->
+            <button class="mdl-layout--small-screen-only mdl-button mdl-js-button mdl-button--accent mdl-button--icon wdm-small-action-btn" ui-sref="map">
+                <i class="material-icons">map</i>
+            </button>
+            <!-- Action map large -->
+            <button class="mdl-layout--large-screen-only mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect" ui-sref="map">
+                <i class="material-icons">map</i>
+                <span translate>Map</span>
+            </button>
+        </div>
+        <div ng-if="$root.controller == 'map'">
+            <!-- Action list small -->
+            <button class="mdl-layout--small-screen-only mdl-button mdl-js-button mdl-button--accent mdl-button--icon wdm-small-action-btn" ui-sref="list">
+                <i class="material-icons">view_module</i>
+            </button>
+            <!-- Action list large -->
+            <button class="mdl-layout--large-screen-only mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect" ui-sref="list">
+                <i class="material-icons">view_module</i>
+                <span translate>List</span>
+            </button>
+        </div>
+        <div ng-if="$app.profile">
+            <!-- Menu profile small -->
+            <button id="menu_profile_small" class="mdl-layout--small-screen-only mdl-button mdl-js-button mdl-button--accent wdm-compact-action-btn">
+                <img ng-if="$app.profile.picture" class="wdm-profile-icon" ng-src="{{ $app.profile.picture }}">
+                <span ng-if="!$app.profile.picture">{{ $app.profile.name }}</span>
+                <i class="material-icons wdm-expand-icon">expand_more</i>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_profile_small">
+                <li class="mdl-menu__item mdl-menu__item--full-bleed-divider" ng-click="$app.logout()"><i class="material-icons">exit_to_app</i> <span translate>Logout</span></li>
+                <li class="mdl-menu__item" ng-click="$app.clickOnHelp()"><i class="material-icons">help</i> <span translate>Help</span></li>
+            </ul>
+            <!-- Menu profile large -->
+            <button id="menu_profile_large" class="mdl-layout--large-screen-only mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect">
+                <img ng-if="$app.profile.picture" class="wdm-profile-icon" ng-src="{{ $app.profile.picture }}">
+                <span>{{ $app.profile.name }}</span>
+                <i class="material-icons wdm-expand-icon">expand_more</i>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_profile_large">
+                <li class="mdl-menu__item mdl-menu__item--full-bleed-divider" ng-click="$app.logout()"><i class="material-icons">exit_to_app</i> <span translate>Logout</span></li>
+                <li class="mdl-menu__item" ng-click="$app.clickOnHelp()"><i class="material-icons">help</i> <span translate>Help</span></li>
+            </ul>
+        </div>
+        <div ng-if="!$app.profile">
+            <!-- Menu login small -->
+            <button id="menu_login_small" class="mdl-button mdl-js-button mdl-button--accent wdm-compact-action-btn">
+                <i class="material-icons">account_box</i>
+                <i class="material-icons wdm-expand-icon">expand_more</i>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_login_small">
+                <li class="mdl-menu__item mdl-menu__item--full-bleed-divider" ui-sref="social-login"><i class="material-icons">account_box</i> <span translate>Login</span></li>
+                <li class="mdl-menu__item" ng-click="$app.clickOnHelp()"><i class="material-icons">help</i> <span translate>Help</span></li>
+            </ul>
+        </div>
+    </nav>
+</div>

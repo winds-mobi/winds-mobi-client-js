@@ -1,0 +1,179 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header" ng-include="'/static/web/templates/_menu.html'">
+    </header>
+    <main class="mdl-layout__content">
+        <div id="wdm-help" class="page-content">
+            <h1><i class="material-icons">help</i> <span translate>Help</span></h1>
+
+            <section class="wdm-section">
+                <h2 id="summary" translate>HELP_STATION_SUMMARY_TITLE</h2>
+                <div class="wdm-card-border wdm-card-layout wdm-card-summary-help">
+                    <div class="wdm-name" style="float:left;" translate>HELP_STATION_NAME</div>
+                    <div class="wdm-info" style="float:right;">
+                        <div class="wdm-last-update wdm-status-red" style="float:right;" translate>HELP_LAST_UPDATE</div>
+                        <div class="wdm-provider" style="clear:right;float:right;" translate>HELP_PROVIDER</div>
+                    </div>
+                    <div class="wdm-altitude" style="clear:left;float:left;"><span translate>HELP_ALTITUDE</span></div>
+                    <div class="wdm-wind-speed" style="clear:left;float:left;width: 50%;">
+                        <div class="wdm-wind-avg">{{ $ctrl.example.data[0]['w-avg'].toFixed(1) }}</div>
+                        <div class="wdm-wind-max">{{ $ctrl.example.data[0]['w-max'].toFixed(1) }}<span class="wdm-unit" translate>km/h</span></div>
+                        <svg class="wdm-wind-mini-chart" style="width:100%;max-width:85px;" viewBox="0 0 100 40" data-scope-watch="$ctrl.example"></svg>
+                    </div>
+                    <svg class="wdm-wind-dir-chart" style="float:right;width: 50%;max-width:85px;" viewBox="0 0 100 100" data-scope-watch="$ctrl.example"></svg>
+                    <div class="wdm-help-note" style="right: 160px; top: 2px">1.</div>
+                    <div class="wdm-help-note" style="left: 80px; top: 65px">2.</div>
+                    <div class="wdm-help-note" style="left: 100px; top: 110px">3.</div>
+                    <div class="wdm-help-note" style="right: 100px; top: 75px">4.</div>
+                </div>
+                <ol>
+                    <li>
+                        <span class="wdm-status-red" translate>HELP_STATION_SUMMARY_TEXT_1_RED_DATE</span><span translate>HELP_STATION_SUMMARY_TEXT_1_RED</span><br>
+                        <span class="wdm-status-orange" translate>HELP_STATION_SUMMARY_TEXT_1_ORANGE_DATE</span><span translate>HELP_STATION_SUMMARY_TEXT_1_ORANGE</span>
+                    </li>
+                    <li translate>HELP_STATION_SUMMARY_TEXT_2</li>
+                    <li translate>HELP_STATION_SUMMARY_TEXT_3</li>
+                    <li translate>HELP_STATION_SUMMARY_TEXT_4</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2 id="detail" translate>HELP_STATION_DETAIL_TITLE</h2>
+                <div class="wdm-card-border wdm-card-layout wdm-card-detail-help">
+                    <div class="wdm-detail-layout" style="width: 100%; padding-left: 10px; padding-right: 10px">
+                        <div class="wdm-name" style="float:left; width:130px;" translate>HELP_STATION_NAME</div>
+                        <a class="wdm-btn" style="margin-left: 10px"><i class="material-icons md-18">map</i></a>
+                        <a class="wdm-btn"><i class="material-icons md-18">view_module</i></a>
+                        <a class="wdm-btn" style="float:right; margin-left: 10px"><i class="material-icons md-18">cancel</i></a>
+                        <div class="wdm-info" style="float:right;">
+                            <div class="wdm-last-update wdm-status-orange" style="float:right;">{{ $ctrl.example.fromNow }}</div>
+                            <a class="wdm-provider" style="clear:right;float:right;" translate>HELP_PROVIDER</a>
+                        </div>
+                        <div class="wdm-altitude" style="clear:left;float:left;" translate>HELP_ALTITUDE</div>
+                        <div class="wdm-name" style="clear:both; text-align: center">...</div>
+                    </div>
+                    <div class="wdm-help-note" style="left: 155px; top: 30px">1.</div>
+                    <div class="wdm-help-note" style="left: 185px; top: 30px">2.</div>
+                </div>
+                <ol>
+                    <li translate>HELP_STATION_DETAIL_TEXT_1</li>
+                    <li translate>HELP_STATION_DETAIL_TEXT_2</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2 id="map_colors" translate>HELP_MAP_COLORS_TITLE</h2>
+                <div translate>HELP_MAP_COLORS_TEXT</div>
+                <table class="wdm-help-legend">
+                    <tr>
+                        <td ng-style="$ctrl.getLegendColorStyle(5);"></td>
+                        <td ng-style="$ctrl.getLegendColorStyle(10);"></td>
+                        <td ng-style="$ctrl.getLegendColorStyle(15);"></td>
+                        <td ng-style="$ctrl.getLegendColorStyle(20);"></td>
+                        <td ng-style="$ctrl.getLegendColorStyle(25);"></td>
+                        <td ng-style="$ctrl.getLegendColorStyle(30);"></td>
+                        <td ng-style="$ctrl.getLegendColorStyle(35);"></td>
+                        <td ng-style="$ctrl.getLegendColorStyle(40);"></td>
+                        <td ng-style="$ctrl.getLegendColorStyle(45);"></td>
+                        <td ng-style="$ctrl.getLegendColorStyle(50);"></td>
+                    </tr>
+                    <tr>
+                        <td>&lt5</td>
+                        <td>10</td>
+                        <td>15</td>
+                        <td>20</td>
+                        <td>25</td>
+                        <td>30</td>
+                        <td>35</td>
+                        <td>40</td>
+                        <td>45</td>
+                        <td>&gt50</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <h2 id="favorites" translate>HELP_FAVORITES</h2>
+                <div style="position: relative; width: 300px; margin-left:5px; background-color: #a81717;" ui-sref="social-login">
+                    <!-- Menu login large -->
+                    <button class="mdl-button mdl-js-button mdl-button--accent" re>
+                        <i class="material-icons">account_box</i>
+                        <span translate>Login</span>
+                        <i class="material-icons wdm-expand-icon">expand_more</i>
+                    </button>
+                    <div class="wdm-help-note" style="left: 190px; top: 7px">1.</div>
+                </div>
+                <div class="wdm-card-border wdm-card-layout wdm-card-summary-help">
+                    <div class="wdm-name" style="float: left; margin-left: 25px">
+                        <span>
+                            <i class="material-icons">favorite_border</i>
+                        </span>
+                        <span class="wdm-name-text" style="margin-left: 5px" translate>HELP_STATION_NAME</span>
+                    </div>
+                    <div class="wdm-help-note" style="left: 5px; top: 5px">2.</div>
+                </div>
+                <ol>
+                    <li ng-bind-html="$ctrl.favoritesText1"></li>
+                    <li translate>HELP_FAVORITES_TEXT_2</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2 id="iframe" translate>HELP_IFRAME_TITLE</h2>
+                <iframe src="https://winds.mobi/stations/list?lat=45.3103&lon=5.8888" width="350" height="350" frameborder="0"></iframe>
+                <p translate>HELP_IFRAME_TEXT</p>
+                <ul>
+                    <li>https://winds.mobi/stations/list?lat=45.3103&lon=5.8888</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 id="providers" translate>HELP_PROVIDERS_TITLE</h2>
+                <ul>
+                    <li><a href="http://www.balisemeteo.com" target="_blank">ffvl.fr</a></li>
+                    <li><a href="https://holfuy.com" target="_blank">holfuy.com</a></li>
+                    <li><a href="http://meteo.jdc.ch" target="_blank">jdc.ch</a></li>
+                    <li><a href="https://www.meteoswiss.admin.ch" target="_blank">meteoswiss.admin.ch</a></li>
+                    <li><a href="https://pioupiou.com" target="_blank">pioupiou.com</a></li>
+                    <li><a href="https://www.windline.ch" target="_blank">windline.ch</a></li>
+                    <li><a href="https://www.windspots.com" target="_blank">windspots.com</a></li>
+                    <li><a href="https://aviationweather.gov/metar/" target="_blank">NOAA Metar</a> (station metadata provided by <a href="https://www.checkwx.com/" target="_blank">www.checkwx.com</a>)</li>
+                    <li><a href="http://www.yvbeach.com" target="_blank">Yvonand beach</a></li>
+                    <li><a href="http://www.thunerwetter.ch/wind.html" target="_blank">Thuner wetter</a></li>
+                    <li><a href="http://romma.fr" target="_blank">Réseau d'Observation Météo du Massif Alpin</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 id="compatibility" translate>HELP_COMPATIBILITY_TITLE</h2>
+                <p translate translate-compile>HELP_COMPATIBILITY_TEXT</p>
+            </section>
+
+            <section>
+                <h2 id="privacy" translate>HELP_PRIVACY_TITLE</h2>
+                <p translate translate-compile>HELP_PRIVACY_TEXT</p>
+            </section>
+
+            <section>
+                <h2 translate>HELP_ABOUT_TITLE</h2>
+                <div class="wdm-paragraph">
+                    <span translate>HELP_ABOUT_TEXT</span>
+                    <ul>
+                        <li><a href="mailto:yann@winds.mobi" target="_blank">yann@winds.mobi</a></li>
+                        <li><a href="https://www.facebook.com/WindsMobi" target="_blank">www.facebook.com/WindsMobi</a></li>
+                    </ul>
+                </div>
+                <div class="wdm-paragraph">
+                    <span translate>HELP_ABOUT_CREDITS_TEXT</span>
+                    <ul>
+                        <li>Andy Jäggi for the German translation</li>
+                    </ul>
+                </div>
+                <p>
+                    <a href="https://github.com/ysavary/WindMobile2-Server" target="_blank">
+                        <img width="24" height="24" src="//files-windsmobi.netdna-ssl.com/static/web/img/GitHub-Mark-32px.png"><span style="margin-left: 5px">github.com/ysavary/WindMobile2-Server</span>
+                    </a>
+                </p>
+            </section>
+        </div>
+    </main>
+</div>

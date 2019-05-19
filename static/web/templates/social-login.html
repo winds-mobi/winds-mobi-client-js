@@ -1,0 +1,31 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout-icon" id="wdm-app-icon">
+            <a href="#" ng-click="$ctrl.clickOnNavBar()"><img src="//files-windsmobi.netdna-ssl.com/static/web/img/windmobile.png"></a>
+        </div>
+        <div class="mdl-layout__header-row">
+            <span id="wdm-app-title" class="mdl-layout-title mdl-layout--large-screen-only" ng-click="$ctrl.clickOnNavBar()">winds.mobi</span>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+                <button class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect" onClick="javascript:history.go(-1);">
+                    <i class="material-icons">keyboard_backspace</i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <main class="mdl-layout__content">
+        <div id="wdm-help" class="page-content">
+            <h1><i class="material-icons">account_box</i> <span translate>SOCIAL_LOGIN_TITLE</span></h1>
+            <p>
+                <span translate>LOGIN_BENEFIT_TEXT</span>
+                <ul>
+                    <li translate>LOGIN_BENEFIT_1</li>
+                </ul>
+            </p>
+            <br/>
+            <div>
+                <a class="wdm-facebook-sign-up" href="/auth/facebook/oauth2callback/"></a>
+                <a class="wdm-google-sign-up" href="/auth/google/oauth2callback/"></a>
+            </div>
+        </div>
+</div>

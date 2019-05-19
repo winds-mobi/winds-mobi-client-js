@@ -1,0 +1,42 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout-icon" id="wdm-app-icon">
+            <a href="#" ng-click="$ctrl.clickOnNavBar()"><img src="/static/web/img/windmobile.png"></a>
+        </div>
+        <div class="mdl-layout__header-row">
+            <span id="wdm-app-title" class="mdl-layout-title mdl-layout--large-screen-only" ng-click="$ctrl.clickOnNavBar()">winds.mobi</span>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+                <button class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect" onClick="javascript:history.go(-1);">
+                    <i class="material-icons">keyboard_backspace</i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <main class="mdl-layout__content">
+        <div id="wdm-help" class="page-content">
+            <h2><i class="material-icons">account_box</i> <span translate>LOGIN_TITLE</span></h2>
+            <p>
+                <span translate>LOGIN_BENEFIT_TEXT</span>
+                <ul>
+                    <li translate>LOGIN_BENEFIT_1</li>
+                </ul>
+            </p>
+            <br/>
+            <div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input id="username" class="mdl-textfield__input" type="text" ng-model="$ctrl.username">
+                    <label class="mdl-textfield__label" for="username" translate>Username</label>
+                    <span id="username-error" class="mdl-textfield__error">{{ $ctrl.usernameError }}</span>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input id="password" class="mdl-textfield__input" type="password" ng-model="$ctrl.password">
+                    <label class="mdl-textfield__label" for="password" translate>Password</label>
+                    <span id="password-error" class="mdl-textfield__error">{{ $ctrl.passwordError }}</span>
+                </div>
+                <div style="margin-top: 20px">
+                    <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="$ctrl.login()" translate="">Login</button>
+                </div>
+            </div>
+        </div>
+</div>

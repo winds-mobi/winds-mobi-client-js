@@ -1,0 +1,43 @@
+<!doctype html>
+<html ng-app="windmobile">
+
+<head>
+    <link href="//files-windsmobi.netdna-ssl.com/static/web/css/windmobile.css" rel="stylesheet">
+
+    <link href="//files-windsmobi.netdna-ssl.com/static/web/img/favicon.png" rel="icon">
+    <link href="//files-windsmobi.netdna-ssl.com/static/web/img/launcher-icon-192x192.png" rel="icon" sizes="192x192">
+    <link href="//files-windsmobi.netdna-ssl.com/static/web/manifest.json" rel="manifest">
+
+    <link href="//files-windsmobi.netdna-ssl.com/static/web/img/launcher-icon-white-192x192.png" rel="apple-touch-icon" sizes="192x192">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <meta name="apple-mobile-web-app-title" content="winds.mobi">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#a81717">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/stations/">
+
+    <title>winds.mobi - observations du vent</title>
+</head>
+
+<body>
+<div ui-view></div>
+<div class="mdl-snackbar mdl-js-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button type="button" class="mdl-snackbar__action"></button>
+</div>
+
+<script src="//maps.google.com/maps/api/js?v=3.31&key=AIzaSyDUPnUtt7tJyGA1Et3STcBmPCJY9q6r0mE"></script>
+<script src="//files-windsmobi.netdna-ssl.com/static/web/js/windmobile.js"></script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-116222-4', 'auto');
+</script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+// Universal Box Sizing with Inheritance
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+// Material Design Lite customization
+$layout-header-mobile-row-height: 52px;
+$layout-header-mobile-baseline: 50px;
+$layout-header-mobile-indent: 8px;
+$layout-header-desktop-row-height: 60px;
+$layout-header-desktop-baseline: 50px;
+$layout-header-desktop-indent: 16px;
+$color-primary: 168, 23, 23;
+$color-accent: 240, 240, 240;
+$text-link-color: rgb(91, 0, 0);
+$trim-color-classes: true;
+@import "node_modules/material-design-lite/src/material-design-lite";
+
+// Fix mdl menus with icon and text alignment
+.mdl-menu__item {
+    i {
+        vertical-align: middle;
+    }
+    span {
+        vertical-align: middle;
+    }
+}
+
+// Using boostrap for modals and tabs only
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/modals";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navs";
+
+$text-color: #ccc;
+$highlight-text-color: #f8f8f8;
+$separator-line-color: darken($text-color, 20%);
+$small-font-size: 12px;
+$font-size: 15px;
+
+#wdm-app-icon {
+    background: unquote("rgb(#{$color-accent})");
+    border-radius: 50%;
+}
+#wdm-app-icon img {
+    padding: 4px;
+    height: 32px;
+    width: 32px;
+}
+#wdm-app-title {
+    color: unquote("rgb(#{$color-accent})");
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#wdm-search-field-parent {
+    @media (max-width: 500px) {
+        width: 120px;
+    }
+}
+
+#wdm-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#wdm-list-main {
+    background-color: #000;
+}
+body.modal-open #wdm-list-content {
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+#wdm-list-content {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.wdm-card-border {
+    margin: 5px;
+    padding: 5px;
+    border: 1.5px solid $separator-line-color;
+    border-radius: 8px;
+}
+
+.wdm-card-layout {
+    display: inline-block;
+    vertical-align: top;
+    color: $text-color;
+    font-size: $font-size;
+    line-height: 1.428571429;
+    text-align: left;
+    overflow: hidden;
+
+    a {
+        color: $text-color;
+        text-decoration: underline;
+        &:hover, &:active {
+            color: $highlight-text-color;
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+    .wdm-btn {
+        cursor: pointer;
+    }
+    .wdm-name {
+        i {
+            vertical-align: middle;
+            font-size: 17px;
+        }
+        span.wdm-name-text {
+            vertical-align: middle;
+            overflow: hidden;
+            color: $highlight-text-color;
+            font-size: 17px;
+        }
+        margin-right: 2px;
+        word-break: break-word;
+    }
+    .wdm-last-update {
+        font-size: $small-font-size;
+    }
+    .wdm-provider {
+        font-size: $small-font-size;
+    }
+    .wdm-altitude {
+        font-size: $small-font-size;
+    }
+    .wdm-wind-avg {
+        font-size: 23px;
+        color: $highlight-text-color;
+    }
+    .wdm-wind-max {
+        color: $highlight-text-color;
+    }
+    .wdm-wind-mini-chart {
+        margin-top: 5px;
+    }
+    .wdm-wind-hour-value {
+        color: $highlight-text-color;
+    }
+    .wdm-air-value {
+        color: $highlight-text-color;
+    }
+}
+
+.wdm-detail-layout {
+    @extend .wdm-card-layout;
+
+    .wdm-wind-avg {
+        font-size: 27px;
+        color: $highlight-text-color;
+    }
+    .wdm-wind-max {
+        font-size: 19px;
+        color: $highlight-text-color;
+    }
+    .wdm-wind-dir {
+        font-size: 17px;
+        color: $highlight-text-color;
+    }
+    .wdm-wind-hour-value {
+        font-size: 17px;
+        color: $highlight-text-color;
+    }
+    .wdm-air-value {
+        font-size: 17px;
+        color: $highlight-text-color;
+    }
+}
+
+.wdm-wind-dir-chart {
+    text-anchor: middle;
+    alignment-baseline: central;
+}
+.wdm-title {
+    clear: both;
+    margin-top: 10px;
+    color: $text-color;
+}
+.wdm-label {
+    font-size: $small-font-size;
+    color: $text-color;
+}
+.wdm-unit {
+    margin-left: 5px;
+    font-size: $small-font-size;
+    color: $text-color;
+}
+
+.wdm-status-red {
+    color: #cd1717;
+}
+.wdm-status-orange {
+    color: #ffa500;
+}
+
+$wind-color: #b4b400;
+.wdm-wind-text-color {
+    color: darken($wind-color, 5%)
+}
+.wdm-direction-line {
+    stroke: $wind-color;
+    stroke-width: 2;
+}
+.wdm-minichart-line {
+    stroke: $wind-color;
+    stroke-width: 2;
+}
+.wdm-direction-chart-line {
+    color: $wind-color;
+}
+
+$air-color: #1989c6;
+.wdm-air-text-color {
+    color: darken($air-color, 5%);
+}
+$temperature-color: #cd1717;
+.wdm-temperature-chart-line {
+    color: $temperature-color;
+}
+$humidity-color: $air-color;
+.wdm-humidity-chart-line {
+    color: $humidity-color;
+}
+
+.wdm-card-map {
+    background-color: rgba(0, 0, 0, 0.9);
+    @media (max-width: 400px) {
+        max-width: 200px;
+    }
+    max-width: 230px;
+    min-width: 180px;
+    cursor: pointer;
+}
+
+.wdm-card-list {
+    width: 45%;
+    @media (max-width: 335px) {
+        width: 100%;
+    }
+    min-width: 150px;
+    max-width: 245px;
+    background-color: #151515;
+    cursor: pointer;
+}
+
+.wdm-modal {
+    background-color: rgba(0, 0, 0, 1);
+    margin: -5px;
+}
+
+.mdl-navigation {
+    .wdm-small-action-btn {
+        // Extending touch zone
+        padding: 18px;
+    }
+    .wdm-compact-action-btn {
+        padding: 0;
+    }
+
+    .wdm-expand-icon {
+        margin-left: -7px;
+        margin-right: -7px;
+    }
+
+    .wdm-profile-icon {
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+    }
+}
+
+.wdm-nav-tabs {
+    margin-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-bottom: 1px solid $separator-line-color;
+
+    > li {
+        > a {
+            color: $text-color;
+            &:hover, &:focus {
+                background-color: transparent;
+                border-color: transparent;
+                color: $highlight-text-color;
+            }
+        }
+    }
+    > li.active {
+        > a, a:hover, a:focus {
+            background-color: transparent;
+            color: $text-color;
+            border: 1px solid $separator-line-color;
+        }
+    }
+}
+
+.wdm-map-legend {
+    @media (max-height: 400px) {
+        display: none;
+    }
+
+    background: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 4px -1px;
+    @media (min-width: 400px) {
+        margin-right: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        line-height: 1.428571429;
+    }
+    td {
+        width: 50px;
+        @media (min-height: 600px) {
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+        @media (max-height: 500px) {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        padding-top: 1px;
+        padding-bottom: 1px;
+        text-align: center;
+        font-weight: 900;
+    }
+
+    .wdm-map-legend-type {
+        font-weight: normal;
+        color: DarkGray;
+
+        img {
+            @media (min-height: 700px) {
+                height: 20px;
+            }
+            @media (max-height: 500px) {
+                height: 16px;
+            }
+            height: 18px;
+            width: 30px;
+        }
+    }
+
+    .wdm-map-hideable {
+        @media (max-height: 700px) {
+            display: none;
+        }
+    }
+}
+
+#wdm-help {
+    @media (max-width: 550px) {
+        width: 350px;
+    }
+    width: 500px;
+    margin: auto;
+    padding: 0 2px 10px 2px;
+
+    h1, h2, p, ol, li, td {
+        color: #333;
+    }
+    h1, h2 {
+        line-height: 1.35;
+        i {
+            vertical-align: middle;
+        }
+        span {
+            vertical-align: middle;
+        }
+    }
+
+    h1 {
+        font-size: 23px;
+        margin-top: 15px;
+        margin-bottom: 5px;
+    }
+    h2 {
+        font-size: 19px;
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+    section {
+        margin-bottom: 30px;
+    }
+    p, div.wdm-paragraph {
+        margin: 10px 0 10px 0;
+    }
+    ul, ol {
+        margin-top: 5px;
+    }
+}
+
+.wdm-help-legend {
+    td {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+    }
+}
+
+.wdm-card-summary-help {
+    width: 330px;
+    background-color: #222;
+    position: relative;
+}
+
+.wdm-card-detail-help {
+    background-color: #222;
+    position: relative;
+    border-radius: 8px 8px 0 0;
+}
+
+.wdm-help-note {
+    position: absolute;
+    color: $highlight-text-color;
+    font-size: 14px;
+    text-align: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: solid 1px $text-color;
+}
+
+.blink {
+    animation: blink 700ms infinite alternate;
+}
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.wdm-google-sign-up {
+    display: inline-block;
+    width: 185px;
+    height: 40px;
+    background: url('/static/web/img/btn_google_signin_dark_normal_web.png') no-repeat top;
+    margin-right: 10px;
+}
+
+.wdm-facebook-sign-up {
+    display: inline-block;
+    width: 185px;
+    height: 40px;
+    background: url('/static/web/img/facebook-signin.png') no-repeat top;
+    margin-right: 10px;
+}

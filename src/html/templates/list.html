@@ -1,0 +1,44 @@
+<div class="modal" id="detailModal" ui-view="detailView" tabindex="-1" role="dialog">
+</div>
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header" ng-include="'/static/web/templates/_menu-search.html'">
+    </header>
+    <main id="wdm-list-main" class="mdl-layout__content">
+        <div id="wdm-list-content" class="page-content">
+            <div ng-if="!main.emptyFavorites">
+                <div class="wdm-card-border wdm-card-layout wdm-card-list" ng-repeat="station in main.stations" ng-click="main.selectStation(station)">
+                    <div class="wdm-name" style="float: left;" ng-switch="$app.profile.favorites.indexOf(station._id) > -1">
+                        <span ng-click="$app.toogleFavorite(station._id, $event)">
+                            <i ng-switch-when="true" class="material-icons">favorite</i>
+                            <i ng-switch-default class="material-icons">favorite_border</i>
+                        </span>
+                        <span class="wdm-name-text">{{ station.short }}</span>
+                    </div>
+                    <div class="wdm-info" style="float:right;">
+                        <div class="wdm-last-update" style="float:right;" ng-class="station.fromNowClass">{{ station.fromNow }}</div>
+                        <div class="wdm-provider" style="clear:right;float:right;">{{ station['pv-name'] }}</div>
+                    </div>
+                    <div class="wdm-altitude" style="clear:left;float:left;">{{ station.alt }} <span translate>meters</span>
+                        <i ng-if="station.peak" class="material-icons" style="font-size: 18px; vertical-align: middle; margin-bottom: 3px;">terrain</i>
+                    </div>
+                    <div class="wdm-wind-speed" style="clear:left;float:left;width: 50%;">
+                        <div class="wdm-wind-avg">{{ station.last['w-avg'].toFixed(1) }}</div>
+                        <div class="wdm-wind-max">{{ station.last['w-max'].toFixed(1) }}<span class="wdm-unit" translate>km/h</span></div>
+                        <svg class="wdm-wind-mini-chart" style="width:100%;max-width:85px;" viewBox="0 0 100 40" data-scope-watch="station.historic"></svg>
+                    </div>
+                    <svg class="wdm-wind-dir-chart" style="float:right;width: 50%;max-width:85px;" viewBox="0 0 100 100" data-scope-watch="station.historic"></svg>
+                </div>
+            </div>
+            <div ng-if="main.emptyFavorites">
+                <div class="wdm-card-border wdm-card-layout wdm-card-list" ng-click="main.toogleFavorites()">
+                    <div class="wdm-name-text" style="text-align: center">
+                        <span translate>LIST_EMPTY_FAVORITES_TEXT_1</span><br/>
+                        <span translate>LIST_EMPTY_FAVORITES_TEXT_2</span>
+                        <i class="material-icons" style="vertical-align: middle">favorite_border</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

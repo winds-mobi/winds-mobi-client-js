@@ -1,0 +1,49 @@
+<div class="mdl-layout-icon" id="wdm-app-icon">
+    <a href="#" ng-click="$app.clickOnNavBar()"><img src="/static/web/img/windmobile.png"></a>
+</div>
+<div class="mdl-layout__header-row">
+    <span id="wdm-app-title" class="mdl-layout-title mdl-layout--large-screen-only" ng-click="$app.clickOnNavBar()">winds.mobi</span>
+    <div class="mdl-layout-spacer"></div>
+    <nav class="mdl-navigation">
+        <!-- Action map large -->
+        <button class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect" ui-sref="map">
+            <i class="material-icons">map</i>
+            <span translate>Map</span>
+        </button>
+        <!-- Action list large -->
+        <button class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect" ui-sref="list">
+            <i class="material-icons">view_module</i>
+            <span translate>List</span>
+        </button>
+        <div ng-if="$app.profile">
+            <!-- Menu profile small -->
+            <button id="menu_profile_small" class="mdl-layout--small-screen-only mdl-button mdl-js-button mdl-button--accent wdm-compact-action-btn">
+                <img ng-if="$app.profile.picture" class="wdm-profile-icon" ng-src="{{ $app.profile.picture }}">
+                <span ng-if="!$app.profile.picture">{{ $app.profile.name }}</span>
+                <i class="material-icons wdm-expand-icon">expand_more</i>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_profile_small">
+                <li class="mdl-menu__item" ng-click="$app.logout()"><i class="material-icons">exit_to_app</i> <span translate>Logout</span></li>
+            </ul>
+            <!-- Menu profile large -->
+            <button id="menu_profile_large" class="mdl-layout--large-screen-only mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect">
+                <img ng-if="$app.profile.picture" class="wdm-profile-icon" ng-src="{{ $app.profile.picture }}">
+                <span>{{ $app.profile.name }}</span>
+                <i class="material-icons wdm-expand-icon">expand_more</i>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_profile_large">
+                <li class="mdl-menu__item" ng-click="$app.logout()"><i class="material-icons">exit_to_app</i> <span translate>Logout</span></li>
+            </ul>
+        </div>
+        <div ng-if="!$app.profile">
+            <!-- Menu login small -->
+            <button id="menu_login_small" class="mdl-button mdl-js-button mdl-button--accent wdm-compact-action-btn">
+                <i class="material-icons">account_box</i>
+                <i class="material-icons wdm-expand-icon">expand_more</i>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_login_small">
+                <li class="mdl-menu__item" ui-sref="social-login"><i class="material-icons">account_box</i> <span translate>Login</span></li>
+            </ul>
+        </div>
+    </nav>
+</div>
