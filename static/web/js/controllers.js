@@ -60,7 +60,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 if (token) {
                     $http({
                         method: 'GET',
-                        url: utils.apiUserUrl + '/users/profile/',
+                        url: utils.apiUserUrl + '/profile/',
                         headers: {'Authorization': 'JWT ' + token}
                     }).then(function (response) {
                         var data = response.data;
@@ -101,7 +101,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                         if (self.profile.favorites.indexOf(stationId) > -1) {
                             $http({
                                 method: 'DELETE',
-                                url: utils.apiUserUrl + '/users/profile/favorites/' + stationId + '/',
+                                url: utils.apiUserUrl + '/profile/favorites/' + stationId + '/',
                                 headers: {'Authorization': 'JWT ' + token, 'Content-Type': 'application/json'}
                             }).then(function (response) {
                                 self.getProfile();
@@ -113,7 +113,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                         } else {
                             $http({
                                 method: 'POST',
-                                url: utils.apiUserUrl + '/users/profile/favorites/' + stationId + '/',
+                                url: utils.apiUserUrl + '/profile/favorites/' + stationId + '/',
                                 headers: {'Authorization': 'JWT ' + token, 'Content-Type': 'application/json'}
                             }).then(function (response) {
                                 self.getProfile();
@@ -921,7 +921,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 if (self.username && self.password) {
                     $http({
                         method: 'POST',
-                        url: utils.apiUserUrl + '/auth/login/',
+                        url: utils.apiUserUrl + '/login/',
                         data: {
                             username: self.username,
                             password: self.password

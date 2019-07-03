@@ -103,7 +103,7 @@ angular.module('windmobile.services', [])
             },
 
             apiUrl: "https://winds.mobi/api/2.1",
-            apiUserUrl: "https://winds.mobi/api/2"
+            apiUserUrl: "https://winds.mobi/user"
         }
     }])
     .factory('visibilityBroadcaster', ['$rootScope', '$document', function ($rootScope, $document) {
