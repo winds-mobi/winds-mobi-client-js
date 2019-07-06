@@ -1006,8 +1006,8 @@ angular.module('windmobile.controllers', ['windmobile.services'])
             };
             (function () {
                 $translate('HELP_FAVORITES_TEXT_1').then(function (text) {
-                    text = text.replace('[[facebookLink]]', '<a href="/auth/facebook/oauth2callback/">Facebook</a>');
-                    text = text.replace('[[googleLink]]', '<a href="/auth/google/oauth2callback/">Google</a>');
+                    text = text.replace('[[facebookLink]]', '<a href="/user/facebook/oauth2callback/">Facebook</a>');
+                    text = text.replace('[[googleLink]]', '<a href="/user/google/oauth2callback/">Google</a>');
                     self.favoritesText1 = $sce.trustAsHtml(text);
                 });
             })();
