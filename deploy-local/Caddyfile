@@ -1,0 +1,29 @@
+localhost:8000 {
+  root ./static
+
+  proxy /admin 127.0.0.1:8011 {
+    transparent
+  }
+  proxy /user 127.0.0.1:8011 {
+    transparent
+  }
+  proxy /django-static 127.0.0.1:8011
+
+  proxy /api/2.3/ http://127.0.0.1:8001 {
+    transparent
+    without /api/2.3
+  }
+  proxy /api/2/ http://127.0.0.1:8001 {
+    transparent
+    without /api/2
+  }
+
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+localhost:8000/static {
+  root ./static
+}
