@@ -789,9 +789,14 @@ angular.module('windmobile.controllers', ['windmobile.services'])
             });
 
             this.getStation = function () {
+                var params = {
+                    keys: ['pv-name', 'short', 'name', 'alt', 'peak', 'status', 'loc', 'url', 'last._id', 'last.w-dir',
+                        'last.w-avg', 'last.w-max', 'last.temp', 'last.hum', 'last.rain', 'last.pres']
+                };
                 $http({
                     method: 'GET',
-                    url: utils.apiUrl + '/stations/' + $stateParams.stationId + '/'
+                    url: utils.apiUrl + '/stations/' + $stateParams.stationId + '/',
+                    params: params
                 }).success(function (data) {
                     self.station = data;
 
