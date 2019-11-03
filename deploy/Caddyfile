@@ -13,11 +13,7 @@ winds.mobi {
     transparent
     without /api/2.2
   }
-  proxy /api/2.1/ http://127.0.0.1:8001 {
-    transparent
-    without /api/2.1
-  }
-  proxy /api/2/ http://127.0.0.1:8001 {
+  proxy /api/2/ http://127.0.0.1:8002 {
     transparent
     without /api/2
   }
@@ -27,7 +23,39 @@ winds.mobi {
     if {path} is /
     / /stations
   }
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
 }
 winds.mobi/static {
   root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
+holfuy.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+holfuy.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
+reports.winds.mobi {
+  root /var/www/html/reports
+  browse
 }
