@@ -55,6 +55,23 @@ holfuy.winds.mobi/static {
   }
 }
 
+iweathar.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+iweathar.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
 reports.winds.mobi {
   root /var/www/html/reports
   browse

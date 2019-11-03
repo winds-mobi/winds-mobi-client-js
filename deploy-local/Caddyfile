@@ -9,9 +9,9 @@ localhost:8000 {
   }
   proxy /django-static 127.0.0.1:8011
 
-  proxy /api/2.3/ http://127.0.0.1:8001 {
+  proxy /api/2.2/ http://127.0.0.1:8001 {
     transparent
-    without /api/2.3
+    without /api/2.2
   }
   proxy /api/2/ http://127.0.0.1:8001 {
     transparent
