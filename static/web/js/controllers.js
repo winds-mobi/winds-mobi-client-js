@@ -389,9 +389,9 @@ angular.module('windmobile.controllers', ['windmobile.services'])
     ])
 
     .controller('MapController',
-        ['$scope', '$state', '$http', '$compile', '$templateCache', '$location', 'utils',
+        ['$scope', '$state', '$window', '$http', '$compile', '$templateCache', '$location', 'utils',
             'lat', 'lon', 'zoom',
-        function ($scope, $state, $http, $compile, $templateCache, $location, utils,
+        function ($scope, $state, $window, $http, $compile, $templateCache, $location, utils,
                   lat, lon, zoom) {
             var self = this;
             var infoBox;
@@ -632,6 +632,16 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     }
                 }
             });
+            $window.gm_authFailure = function () {
+                $('.mdl-js-snackbar')[0].MaterialSnackbar.showSnackbar({
+                    message: 'Google Maps quota exceeded',
+                    actionHandler: function (event) {
+                        window.open('https://www.facebook.com/WindsMobi/posts/1483096478515350', '_blank');
+                    },
+                    actionText: 'More detail...',
+                    timeout: 60000
+                });
+            };
             $('#wdm-search-field').keydown(function (event) {
                 if (event.keyCode == 13) {
                     this.blur();
