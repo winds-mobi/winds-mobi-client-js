@@ -222,3 +222,20 @@ romma.winds.mobi/static {
     rotate_age  30  # days
   }
 }
+
+aletsch.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+aletsch.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
