@@ -133,6 +133,24 @@ meteoswiss.winds.mobi/static {
   }
 }
 
+# slf
+slf.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+slf.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
 # jdc
 jdc.winds.mobi {
   root /home/windmobile/winds-mobi-client-js/static
