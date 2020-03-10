@@ -38,6 +38,12 @@ winds.mobi/static {
   }
 }
 
+reports.winds.mobi {
+  root /var/www/html/reports
+  browse
+}
+
+# holfuy
 holfuy.winds.mobi {
   root /home/windmobile/winds-mobi-client-js/static
   rewrite ^/stations /web/stations.html
@@ -55,6 +61,43 @@ holfuy.winds.mobi/static {
   }
 }
 
+# ffvl
+ffvl.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+ffvl.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
+# openwindmap
+pioupiou.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+pioupiou.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
+# iweathar
 iweathar.winds.mobi {
   root /home/windmobile/winds-mobi-client-js/static
   rewrite ^/stations /web/stations.html
@@ -72,7 +115,110 @@ iweathar.winds.mobi/static {
   }
 }
 
-reports.winds.mobi {
-  root /var/www/html/reports
-  browse
+# meteoswiss
+meteoswiss.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+meteoswiss.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
+# jdc
+jdc.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+jdc.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
+# windline
+windline.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+windline.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
+# windspots
+windspots.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+windspots.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
+# noaa metar
+metar.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+metar.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
+}
+
+# romma
+romma.winds.mobi {
+  root /home/windmobile/winds-mobi-client-js/static
+  rewrite ^/stations /web/stations.html
+  redir 301 {
+    if {path} is /
+    / /stations
+  }
+}
+romma.winds.mobi/static {
+  root /home/windmobile/winds-mobi-client-js/static
+
+  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
+    rotate_size 50 # MB
+    rotate_age  30  # days
+  }
 }
