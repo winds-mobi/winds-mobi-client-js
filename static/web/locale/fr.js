@@ -61,6 +61,7 @@
         'HELP_ABOUT_TITLE': "À propos",
         'HELP_ABOUT_TEXT': "Des questions, problèmes ou idées d'amélioration ? Contactez-moi !",
         'HELP_ABOUT_CREDITS_TEXT': "Remerciements:",
+        'HELP_ABOUT_CREDITS_SHV_FSVL': "Fédération Suisse de Vol Libre",
         'SOCIAL_LOGIN_TITLE': "Se connecter avec votre compte Facebook ou Google",
         'LOGIN_TITLE': "Se connecter avec un compte winds.mobi",
         'LOGIN_BENEFIT_TEXT': "Vous pourrez:",

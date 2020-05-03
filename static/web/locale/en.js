@@ -60,6 +60,7 @@
         'HELP_ABOUT_TITLE': "About",
         'HELP_ABOUT_TEXT': "Questions, issues or improvement ideas ? Please contact me !",
         'HELP_ABOUT_CREDITS_TEXT': "Credits:",
+        'HELP_ABOUT_CREDITS_SHV_FSVL': "Swiss Hang gliding association",
         'SOCIAL_LOGIN_TITLE': "Login with your Facebook or Google account",
         'LOGIN_TITLE': "Login with a winds.mobi account",
         'LOGIN_BENEFIT_TEXT': "You will be able to:",

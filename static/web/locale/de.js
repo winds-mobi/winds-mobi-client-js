@@ -58,6 +58,7 @@
         'HELP_ABOUT_TITLE': "Über winds.mobi",
         'HELP_ABOUT_TEXT': "Fragen, Anregungen oder Ideen? Bitte kontaktiere mich!",
         'HELP_ABOUT_CREDITS_TEXT': "Credits:",
+        'HELP_ABOUT_CREDITS_SHV_FSVL': "Schweizerischer Hängegleiter-Verban",
         'SOCIAL_LOGIN_TITLE': "Mit Facebook or Google Konto einloggen",
         'LOGIN_TITLE': "Mit winds.mobi Konto einloggen",
         'LOGIN_BENEFIT_TEXT': "Ermöglicht dir:",
