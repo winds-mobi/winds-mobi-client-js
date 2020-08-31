@@ -35,6 +35,8 @@ $trim-color-classes: true;
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/modals";
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navs";
 
+@import "node_modules/mapbox-gl/dist/mapbox-gl";
+
 $text-color: #ccc;
 $highlight-text-color: #f8f8f8;
 $separator-line-color: darken($text-color, 20%);
@@ -309,26 +311,37 @@ $humidity-color: $air-color;
     }
 }
 
+.wdm-map-popup {
+    .mapboxgl-popup-content {
+        background: none;
+        box-shadow: none;
+    }
+
+    .mapboxgl-popup-tip {
+        display: none;
+    }
+}
+
 .wdm-map-legend {
-    @media (max-height: 400px) {
+    @media (max-height: 390px) {
         display: none;
     }
 
-    background: white;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 4px -1px;
-    @media (min-width: 400px) {
-        margin-right: 10px;
-    }
+    margin-right: 10px;
+    margin-bottom: 5px;
 
     table {
+        margin-left: auto;
+        margin-right: 0;
+        background: white;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0 1px 4px -1px;
+
         border-collapse: collapse;
         line-height: 1.428571429;
     }
     td {
-        width: 50px;
+        width: 60px;
         @media (min-height: 600px) {
             padding-top: 2px;
             padding-bottom: 2px;

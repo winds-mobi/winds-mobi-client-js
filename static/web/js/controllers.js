@@ -1,8 +1,10 @@
 var $ = require('jquery/dist/jquery.js');
 var angular = require('angular');
 var moment = require('moment');
-var InfoBox = require('google-maps-infobox');
 var _unionBy = require('lodash/unionBy');
+
+var mapboxgl = require('mapbox-gl');
+mapboxgl.accessToken = 'pk.eyJ1IjoieXNhdmFyeSIsImEiOiJja2VpcHBhY3IwbWgwMnNwY3VrZGowOHM5In0.ajy30axtkB1QUiFQj2mXfQ';
 
 var LocationEnum = {
     FIXED: 2,
@@ -394,7 +396,6 @@ angular.module('windmobile.controllers', ['windmobile.services'])
         function ($scope, $state, $window, $http, $compile, $templateCache, $location, utils,
                   lat, lon, zoom) {
             var self = this;
-            var infoBox;
 
             var markersArray = [];
             function getMarker(id) {
@@ -420,8 +421,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 for (var i = 0; i < markersArray.length; i++) {
                     var marker = markersArray[i];
                     if (!hasStation(marker.station._id, stations)) {
-                        google.maps.event.clearInstanceListeners(marker);
-                        marker.setMap(null);
+                        marker.remove();
                         markersArray.splice(i, 1);
                         i--;
                     }
@@ -445,69 +445,63 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     } else {
                         color = utils.getColorInRange(station.last['w-max'], 50);
                     }
-                    var scale = 0.12;
+                    var iconSize = 42;
                     if ($scope.$app.profile && $scope.$app.profile.favorites) {
                         if ($scope.$app.profile.favorites.indexOf(station._id) > -1) {
-                            scale = scale + scale * 0.3;
+                            iconSize = Math.round(iconSize + iconSize * 0.3);
                         }
                     }
 
-                    var icon = {
-                        path: (station.peak ?
-                            "M20,67.4L88.3-51H20v-99h-40v99h-68.3L-20,67.4V115l-50-25L0,190L70,90l-50,25V67.4z M-35,0c0-19.3,15.7-35,35-35S35-19.3,35,0S19.3,35,0,35S-35,19.3-35,0z" :
-                            "M20,67.1C48.9,58.5,70,31.7,70,0S48.9-58.5,20-67.1V-150h-40v82.9C-48.9-58.5-70-31.7-70,0s21.1,58.5,50,67.1V115l-50-25L0,190L70,90l-50,25V67.1z M-35,0c0-19.3,15.7-35,35-35S35-19.3,35,0S19.3,35,0,35S-35,19.3-35,0z"
-                        ),
-                        scale: scale,
-                        fillOpacity: 1,
-                        fillColor: color,
-                        strokeWeight: 0,
-                        rotation: (station.last ? station.last['w-dir'] : 0)
-                    };
+                    var svg = (station.peak ?
+                        '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-89 -150 178 340">' +
+                        '<path fill="' + color + '" d="M20,67.4L88.3-51H20v-99h-40v99h-68.3L-20,67.4V115l-50-25L0,190L70,90l-50,25V67.4z M-35,0c0-19.3,15.7-35,35-35S35-19.3,35,0S19.3,35,0,35S-35,19.3-35,0z" />' +
+                        '</svg>'
+                    :
+                        '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-70 -150 140 340">' +
+                        '<path fill="' + color + '" d="M20,67.1C48.9,58.5,70,31.7,70,0S48.9-58.5,20-67.1V-150h-40v82.9C-48.9-58.5-70-31.7-70,0s21.1,58.5,50,67.1V115l-50-25L0,190L70,90l-50,25V67.1z M-35,0c0-19.3,15.7-35,35-35S35-19.3,35,0S19.3,35,0,35S-35,19.3-35,0z" />' +
+                        '</svg>'
+                    );
+
+                    var rotation = (station.last ? station.last['w-dir'] : 0)
 
                     if (!marker) {
-                        marker = new google.maps.Marker({
-                            title: station['short'],
-                            position: new google.maps.LatLng(station.loc.coordinates[1], station.loc.coordinates[0]),
-                            icon: icon,
-                            map: self.map
-                        });
+                        var markerEl = document.createElement('div');
+                        markerEl.style.backgroundImage = 'url(data:image/svg+xml;base64,' + window.btoa(svg) + ')';
+                        markerEl.style.width = iconSize + 'px';
+                        markerEl.style.height = iconSize + 'px';
+                        markerEl.style.backgroundPosition = 'center';
+                        markerEl.style.backgroundRepeat = 'no-repeat';
+                        markerEl.style.backgroundSize = 'contain';
+                        markerEl.station = station;
+
+                        marker = new mapboxgl.Marker(markerEl, {rotation: rotation})
+                            .setLngLat([station.loc.coordinates[0], station.loc.coordinates[1]])
+                            .addTo(self.map);
                         marker.station = station;
                         markersArray.push(marker);
 
-                        google.maps.event.addListener(marker, 'click', function () {
-                            // 'click' is also called twice on 'dbckick' event
-                            if (!this.timeout) {
-                                marker = this;
-                                this.timeout = setTimeout(function () {
-                                    marker.timeout = null;
-                                    if (infoBox) {
-                                        infoBox.close();
-                                    }
+                        markerEl.addEventListener('click', function (e) {
+                            // Close all popups
+                            $('.mapboxgl-popup').remove();
 
-                                    self.selectedStation = marker.station;
-                                    if (self.selectedStation.last) {
-                                        self.updateFromNow();
-                                        self.getHistoric();
-                                    }
-
-                                    infoBox = new InfoBox({
-                                        content: $compile($templateCache.get('_infobox.html'))($scope)[0],
-                                        closeBoxURL: '',
-                                        /* same media query as right-margin in windmobile.scss */
-                                        infoBoxClearance: (window.matchMedia('(min-width: 400px)').matches ?
-                                            new google.maps.Size(60, 0) : new google.maps.Size(50, 0))
-                                    });
-                                    infoBox.open(self.map, marker);
-                                }, 300);
+                            self.selectedStation = this.station;
+                            if (self.selectedStation.last) {
+                                self.updateFromNow();
+                                self.getHistoric();
                             }
+
+                            new mapboxgl.Popup({closeButton: false, offset: 15, className: "wdm-map-popup"})
+                                .setLngLat([self.selectedStation.loc.coordinates[0], self.selectedStation.loc.coordinates[1]])
+                                .setDOMContent($compile($templateCache.get('_infobox.html'))($scope)[0])
+                                .addTo(self.map);
+                            // Prevent the parent to close the popup
+                            e.stopPropagation();
                         });
-                        google.maps.event.addListener(marker, 'dblclick', function (event) {
-                            clearTimeout(this.timeout);
-                            this.timeout = null;
-                            throw "propagates dblclick event";
-                        });
-                    } else {
-                        marker.setIcon(icon);
+                    }
+                    else {
+                        var markerEl = marker.getElement();
+                        markerEl.style.backgroundImage = 'url(data:image/svg+xml;base64,' + window.btoa(svg) + ')';
+                        marker.setRotation(rotation);
                     }
                 }
             }
@@ -516,10 +510,10 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     keys: ['short', 'loc', 'status', 'pv-name', 'alt', 'peak', 'last._id', 'last.w-dir',
                         'last.w-avg', 'last.w-max']
                 };
-                params['within-pt1-lat'] = bounds.getNorthEast().lat();
-                params['within-pt1-lon'] = bounds.getNorthEast().lng();
-                params['within-pt2-lat'] = bounds.getSouthWest().lat();
-                params['within-pt2-lon'] = bounds.getSouthWest().lng();
+                params['within-pt1-lat'] = bounds.getNorthEast().lat;
+                params['within-pt1-lon'] = bounds.getNorthEast().lng;
+                params['within-pt2-lat'] = bounds.getSouthWest().lat;
+                params['within-pt2-lon'] = bounds.getSouthWest().lng;
 
                 // Ask for ~15 markers for 300x300 pixels
                 params['limit'] = Math.round($(window).width() * $(window).height() * (15 / 90000));
@@ -555,9 +549,8 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 })
             };
             this.selectStation = function () {
-                if (infoBox) {
-                    infoBox.close();
-                }
+                // Close all popups
+                $('.mapboxgl-popup').remove();
                 $state.go('map.detail', {stationId: this.selectedStation._id});
             };
             this.doSearch = function () {
@@ -571,18 +564,15 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 this.doSearch();
             };
             this.centerMap = function (lat, lon, zoom) {
-                self.map.panTo({
-                    lat: lat,
-                    lng: lon
-                });
+                self.map.setCenter([lon, lat]);
                 self.map.setZoom(zoom);
             };
             this.getGeoStatus = function () {
                 if ($scope.$app.location == LocationEnum.FIXED) {
                     var center = self.map.getCenter();
                     if (center) {
-                        if (utils.roundTo3Digits($scope.$app.lat) != utils.roundTo3Digits(center.lat()) &&
-                            utils.roundTo3Digits($scope.$app.lon) != utils.roundTo3Digits(center.lng())) {
+                        if (utils.roundTo3Digits($scope.$app.lat) != utils.roundTo3Digits(center.lat) &&
+                            utils.roundTo3Digits($scope.$app.lon) != utils.roundTo3Digits(center.lng)) {
                             return LocationEnum.SELECTION_MOVED;
                         }
                     }
@@ -616,8 +606,8 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     + fromState.name + ", toState=" + toState.name);
                 // Save map position in $app
                 var center = self.map.getCenter();
-                $scope.$app.savedMapLat = center.lat();
-                $scope.$app.savedMapLon = center.lng();
+                $scope.$app.savedMapLat = center.lat;
+                $scope.$app.savedMapLon = center.lon;
                 $scope.$app.savedMapZoom = self.map.getZoom();
 
                 // Force modal to close on browser back
@@ -632,16 +622,6 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     }
                 }
             });
-            $window.gm_authFailure = function () {
-                $('.mdl-js-snackbar')[0].MaterialSnackbar.showSnackbar({
-                    message: 'Google Maps quota exceeded',
-                    actionHandler: function (event) {
-                        window.open('https://www.facebook.com/WindsMobi/posts/1483096478515350', '_blank');
-                    },
-                    actionText: 'More detail...',
-                    timeout: 60000
-                });
-            };
             $('#wdm-search-field').keydown(function (event) {
                 if (event.keyCode == 13) {
                     this.blur();
@@ -652,37 +632,35 @@ angular.module('windmobile.controllers', ['windmobile.services'])
             this.tenant = utils.getTenant($location.host());
             this.search = $location.search().search;
 
-            // Initialize Google Maps
-            var mapOptions = {
-                panControl: false,
-                streetViewControl: false,
-                mapTypeControlOptions: {
-                    mapTypeIds: [google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.ROADMAP,
-                        google.maps.MapTypeId.SATELLITE],
-                    position: google.maps.ControlPosition.LEFT_BOTTOM
-                },
-                mapTypeId: google.maps.MapTypeId.TERRAIN
-            };
-            this.map = new google.maps.Map($('#wdm-map')[0], mapOptions);
+            this.map = new mapboxgl.Map({
+                container: 'wdm-map',
+                style: 'mapbox://styles/mapbox/outdoors-v11',
+            });
+            var nav = new mapboxgl.NavigationControl();
+            this.map.addControl(nav, 'top-right');
 
             this.getLegendColorStyle = function (value) {
                 return {color: utils.getColorInRange(value, 50)};
             };
             var legendDiv = $compile($templateCache.get('_legend.html'))($scope);
-            this.map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legendDiv[0]);
 
-            google.maps.event.addListener(self.map, 'click', function () {
-                if (infoBox) {
-                    infoBox.close();
-                    self.selectedStation = null;
-                }
-            });
-            google.maps.event.addListener(self.map, 'bounds_changed', (function () {
+            // Simulate an ES6 class
+            var MapLegendControl = function() {};
+            MapLegendControl.prototype.onAdd = function(map) {
+                this.map = map;
+                this.container = legendDiv[0];
+                return this.container;
+            }
+            MapLegendControl.prototype.onRemove = function(map) {
+                this.container.parentNode.removeChild(this.container);
+                this.map = undefined;
+            }
+            this.map.addControl(new MapLegendControl(), 'bottom-right');
+
+            this.map.on('move', (function () {
                 var timer;
-                var count = 0;
                 return function () {
                     self.geoStatus = self.getGeoStatus();
-                    count++;
                     clearTimeout(timer);
                     timer = setTimeout(function () {
                         self.doSearch();
@@ -750,9 +728,9 @@ angular.module('windmobile.controllers', ['windmobile.services'])
             // Should try to find another way to reload map when the #wdm-map change
             setTimeout(function () {
                 var center = self.map.getCenter();
-                google.maps.event.trigger(self.map, 'resize');
+                self.map.resize();
                 self.map.setCenter(center);
-            }, 500);
+            }, 10);
 
             this.centerMap(initialLat, initialLon, initialZoom);
         }

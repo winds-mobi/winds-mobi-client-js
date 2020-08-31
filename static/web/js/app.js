@@ -396,7 +396,7 @@ angular.module('windmobile', [require('angular-sanitize'), require('angular-ui-r
                 }
 
                 scope.$watch(element.attr('data-scope-watch'), function (newValue, oldValue) {
-                    element.find(".wdm-direction").remove();
+                    element.find(".wdm-direction-line").remove();
                     if (newValue && newValue.data) {
                         var values = newValue.data;
 
