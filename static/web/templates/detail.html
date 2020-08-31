@@ -9,6 +9,7 @@
             </div>
             <a class="wdm-btn" style="margin-left: 10px" ng-click="detail.showOnMap(detail.station)"><i class="material-icons md-18">map</i></a>
             <a class="wdm-btn" ng-click="detail.showOnList(detail.station)"><i class="material-icons md-18">view_module</i></a>
+            <a class="wdm-btn" href="{{ detail.earthLink(detail.station) }}" target="_blank"><i class="material-icons md-18">public</i></a>
             <a class="wdm-btn" style="float:right; margin-left: 10px" data-dismiss="modal"><i class="material-icons md-18">clear</i></a>
             <div class="wdm-info" style="float:right;">
                 <div class="wdm-last-update" style="float:right;" ng-class="detail.station.fromNowClass" title="{{ detail.station.updateTime }}">{{ detail.station.fromNow }}</div>

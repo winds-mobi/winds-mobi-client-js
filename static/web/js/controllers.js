@@ -874,6 +874,9 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     lat: station.loc.coordinates[1], lon: station.loc.coordinates[0]
                 });
             };
+            this.earthLink = function (station) {
+                return 'https://earth.google.com/web/search/' + station.loc.coordinates[1] + ',' + station.loc.coordinates[0];
+            };
 
             this.doDetail();
         }
