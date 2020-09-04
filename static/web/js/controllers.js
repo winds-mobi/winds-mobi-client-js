@@ -3,9 +3,6 @@ var angular = require('angular');
 var moment = require('moment');
 var _unionBy = require('lodash/unionBy');
 
-var mapboxgl = require('mapbox-gl');
-mapboxgl.accessToken = 'pk.eyJ1IjoieXNhdmFyeSIsImEiOiJja2VpcHBhY3IwbWgwMnNwY3VrZGowOHM5In0.ajy30axtkB1QUiFQj2mXfQ';
-
 var LocationEnum = {
     FIXED: 2,
     SEARCHING: 1,
