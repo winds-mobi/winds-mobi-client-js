@@ -450,16 +450,18 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     }
 
                     var svg = (station.peak ?
-                        '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-89 -150 178 340">' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-89 -150 178 340">' +
                         '<path fill="' + color + '" d="M20,67.4L88.3-51H20v-99h-40v99h-68.3L-20,67.4V115l-50-25L0,190L70,90l-50,25V67.4z M-35,0c0-19.3,15.7-35,35-35S35-19.3,35,0S19.3,35,0,35S-35,19.3-35,0z" />' +
                         '</svg>'
                     :
-                        '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-70 -150 140 340">' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-70 -150 140 340">' +
                         '<path fill="' + color + '" d="M20,67.1C48.9,58.5,70,31.7,70,0S48.9-58.5,20-67.1V-150h-40v82.9C-48.9-58.5-70-31.7-70,0s21.1,58.5,50,67.1V115l-50-25L0,190L70,90l-50,25V67.1z M-35,0c0-19.3,15.7-35,35-35S35-19.3,35,0S19.3,35,0,35S-35,19.3-35,0z" />' +
                         '</svg>'
                     );
 
-                    var rotation = (station.last ? station.last['w-dir'] : 0)
+                    var rotation = (station.last ? station.last['w-dir'] : 0);
+                    // Avoid negative numbers
+                    rotation = (rotation - self.map.getBearing() + 360) % 360;
 
                     if (!marker) {
                         var markerEl = document.createElement('div');
@@ -632,9 +634,21 @@ angular.module('windmobile.controllers', ['windmobile.services'])
             this.map = new mapboxgl.Map({
                 container: 'wdm-map',
                 style: 'mapbox://styles/mapbox/outdoors-v11',
+                maxPitch: 65,
             });
-            var nav = new mapboxgl.NavigationControl();
+            var nav = new mapboxgl.NavigationControl({
+                visualizePitch: true
+            });
             this.map.addControl(nav, 'top-right');
+
+            this.map.on('load', function () {
+                self.map.addSource('mapbox-dem', {
+                    'type': 'raster-dem',
+                    'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+                    'tileSize': 512,
+                });
+                self.map.setTerrain({'source': 'mapbox-dem', 'exaggeration': 1.1});
+            });
 
             this.getLegendColorStyle = function (value) {
                 return {color: utils.getColorInRange(value, 50)};
