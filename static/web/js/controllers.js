@@ -460,9 +460,6 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     );
 
                     var rotation = (station.last ? station.last['w-dir'] : 0);
-                    // Avoid negative numbers
-                    rotation = (rotation - self.map.getBearing() + 360) % 360;
-
                     if (!marker) {
                         var markerEl = document.createElement('div');
                         markerEl.style.backgroundImage = 'url(data:image/svg+xml;base64,' + window.btoa(svg) + ')';
@@ -473,7 +470,10 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                         markerEl.style.backgroundSize = 'contain';
                         markerEl.station = station;
 
-                        marker = new mapboxgl.Marker(markerEl, {rotation: rotation})
+                        marker = new mapboxgl.Marker(markerEl, {
+                            rotation: rotation,
+                            rotationAlignment: 'map',
+                        })
                             .setLngLat([station.loc.coordinates[0], station.loc.coordinates[1]])
                             .addTo(self.map);
                         marker.station = station;
