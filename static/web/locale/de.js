@@ -55,14 +55,17 @@
         'HELP_PRIVACY_TITLE': "Privacy policy",
         'HELP_PRIVACY_TEXT': "Winds.mobi stores your name and your email address when you login with your facebook or google account. " +
         "We will never transmit your personal information to others and will do our best to ensure your privacy.",
+        'HELP_PRIVACY_CLOSE_ACCOUNT_TEXT': "You can close your account and erase all your data from here:",
         'HELP_ABOUT_TITLE': "Über winds.mobi",
-        'HELP_ABOUT_TEXT': "Fragen, Anregungen oder Ideen? Bitte kontaktiere mich!",
+        'HELP_ABOUT_TEXT': "Fragen, Anregungen oder Ideen? Bitte kontaktieren Sie uns!",
         'HELP_ABOUT_CREDITS_TEXT': "Credits:",
         'HELP_ABOUT_CREDITS_SHV_FSVL': "Schweizerischer Hängegleiter-Verban",
         'SOCIAL_LOGIN_TITLE': "Mit Facebook or Google Konto einloggen",
         'LOGIN_TITLE': "Mit winds.mobi Konto einloggen",
         'LOGIN_BENEFIT_TEXT': "Ermöglicht dir:",
         'LOGIN_BENEFIT_1': "die Speicherung deiner favorisierten Stationen",
+        'CLOSE_ACCOUNT_TITLE': "Close your account",
+        'CLOSE_ACCOUNT_TEXT': "Close your account and erase all your data.",
 
         'N': "N",
         'NE': "NO",

@@ -147,6 +147,15 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     window.open(appConfig.url_absolute + '/stations/help');
                 }
             };
+            this.clickOnCloseAccount = function () {
+                console.log('clickOnCloseAccount()');
+                var token = $window.localStorage.getItem('token');
+                if (token) {
+                    $state.go('close-account');
+                } else {
+                    $state.go('social-login');
+                }
+            };
 
             this.logout = function () {
                 $window.localStorage.removeItem('token');
@@ -1021,5 +1030,22 @@ angular.module('windmobile.controllers', ['windmobile.services'])
             setTimeout(function () {
                 $anchorScroll();
             }, 300);
+        }
+    ])
+
+    .controller('CloseAccountController', ['$state', '$http', '$window', 'utils',
+        function ($state, $http, $window, utils) {
+            var self = this;
+
+            this.closeAccount = function () {
+                var token = $window.localStorage.getItem('token');
+                $http({
+                    method: 'DELETE',
+                    url: utils.apiUserUrl + '/profile/',
+                    headers: {'Authorization': 'JWT ' + token, 'Content-Type': 'application/json'}
+                }).finally(function () {
+                    $state.go('list', {}, {reload: true});
+                });
+            };
         }
     ]);

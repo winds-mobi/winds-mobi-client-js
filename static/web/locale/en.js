@@ -57,14 +57,17 @@
         'HELP_PRIVACY_TITLE': "Privacy policy",
         'HELP_PRIVACY_TEXT': "Winds.mobi stores your name and your email address when you login with a facebook or a google account. " +
         "We will never transmit your personal information to others and will do our best to ensure your privacy.",
+        'HELP_PRIVACY_CLOSE_ACCOUNT_TEXT': "You can close your account and erase all your data from here:",
         'HELP_ABOUT_TITLE': "About",
-        'HELP_ABOUT_TEXT': "Questions, issues or improvement ideas ? Please contact me !",
+        'HELP_ABOUT_TEXT': "Questions, issues or improvement ideas ? Please contact us!",
         'HELP_ABOUT_CREDITS_TEXT': "Credits:",
         'HELP_ABOUT_CREDITS_SHV_FSVL': "Swiss Hang gliding association",
         'SOCIAL_LOGIN_TITLE': "Login with your Facebook or Google account",
         'LOGIN_TITLE': "Login with a winds.mobi account",
         'LOGIN_BENEFIT_TEXT': "You will be able to:",
         'LOGIN_BENEFIT_1': "save your favorite stations",
+        'CLOSE_ACCOUNT_TITLE': "Close your account",
+        'CLOSE_ACCOUNT_TEXT': "Close your account and erase all your data.",
 
         'N': "N",
         'NE': "NE",

@@ -126,6 +126,12 @@ angular.module('windmobile', [require('angular-sanitize'), require('angular-ui-r
                     url: '/help',
                     templateUrl: '/static/web/templates/help.html',
                     controller: 'HelpController as $ctrl'
+                })
+                .state('close-account', {
+                    parent: 'app',
+                    url: '/close-account',
+                    templateUrl: '/static/web/templates/close-account.html',
+                    controller: 'CloseAccountController as $ctrl'
                 });
             if (Modernizr.touchevents) {
                 $urlRouterProvider.otherwise('/list');

@@ -56,16 +56,19 @@
         'HELP_COMPATIBILITY_TEXT': "winds.mobi fonctionne sur les dernières versions des principaux navigateurs web " +
         "(mobile ou bureau).",
         'HELP_PRIVACY_TITLE': "Politique de confidentialité",
-        'HELP_PRIVACY_TEXT': "Winds.mobi stocke votre nom et votre adresse email lors de la connexion avec un compte Facebook ou Google. " +
+        'HELP_PRIVACY_TEXT': "Winds.mobi enregistre votre nom et votre adresse email lors de la connexion avec un compte Facebook ou Google. " +
         "Nous ne transmettrons jamais ces informations à d'autres et nous faisons tout notre possible pour garantir votre confidentialité.",
+        'HELP_PRIVACY_CLOSE_ACCOUNT_TEXT': "Vous pouvez fermer votre compte et effacer vos toutes données depuis cette page :",
         'HELP_ABOUT_TITLE': "À propos",
-        'HELP_ABOUT_TEXT': "Des questions, problèmes ou idées d'amélioration ? Contactez-moi !",
+        'HELP_ABOUT_TEXT': "Des questions, problèmes ou idées d'amélioration ? Contactez-nous !",
         'HELP_ABOUT_CREDITS_TEXT': "Remerciements:",
         'HELP_ABOUT_CREDITS_SHV_FSVL': "Fédération Suisse de Vol Libre",
         'SOCIAL_LOGIN_TITLE': "Se connecter avec votre compte Facebook ou Google",
         'LOGIN_TITLE': "Se connecter avec un compte winds.mobi",
         'LOGIN_BENEFIT_TEXT': "Vous pourrez:",
         'LOGIN_BENEFIT_1': "sauvegarder vos stations préférées",
+        'CLOSE_ACCOUNT_TITLE': "Fermer votre compte",
+        'CLOSE_ACCOUNT_TEXT': "Fermer votre compte et effacer toutes vos données.",
 
         'N': "N",
         'NE': "NE",

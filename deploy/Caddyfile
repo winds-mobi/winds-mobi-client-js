@@ -1,259 +1,37 @@
-winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
+winds.mobi,
+aletsch.winds.mobi,
+ffvl.winds.mobi,
+holfuy.winds.mobi,
+iweathar.winds.mobi,
+metar.winds.mobi,
+meteoswiss.winds.mobi,
+pioupiou.winds.mobi,
+romma.winds.mobi,
+slf.winds.mobi,
+windline.winds.mobi,
+windspots.winds.mobi
+{
+    root /static/* /home/winds/winds-mobi-client-js/static/
+    uri strip_prefix /static
+    rewrite /stations* /home/winds/winds-mobi-client-js/static/web/stations.html
+    file_server
 
-  proxy /admin 127.0.0.1:8011 {
-    transparent
-  }
-  proxy /user 127.0.0.1:8011 {
-    transparent
-  }
-  proxy /django-static 127.0.0.1:8011
+    handle_path /api/2/* {
+        reverse_proxy http://localhost:8001
+    }
+    handle_path /api/2.2/* {
+        reverse_proxy http://localhost:8001
+    }
 
-  proxy /api/2.2/ http://127.0.0.1:8002 {
-    transparent
-    without /api/2.2
-  }
-  proxy /api/2/ http://127.0.0.1:8002 {
-    transparent
-    without /api/2
-  }
+    handle /user/* {
+        reverse_proxy http://localhost:8006
+    }
+    handle /admin/* {
+        reverse_proxy http://localhost:8006
+    }
+    handle /django-static/* {
+        reverse_proxy http://localhost:8006
+    }
 
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-reports.winds.mobi {
-  root /var/www/html/reports
-  browse
-}
-
-# holfuy
-holfuy.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-holfuy.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-# ffvl
-ffvl.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-ffvl.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-# openwindmap
-pioupiou.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-pioupiou.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-# iweathar
-iweathar.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-iweathar.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-# meteoswiss
-meteoswiss.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-meteoswiss.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-# slf
-slf.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-slf.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-# jdc
-jdc.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-jdc.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-# windline
-windline.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-windline.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-# windspots
-windspots.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-windspots.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-# noaa metar
-metar.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-metar.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-# romma
-romma.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-romma.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
-}
-
-aletsch.winds.mobi {
-  root /home/windmobile/winds-mobi-client-js/static
-  rewrite ^/stations /web/stations.html
-  redir 301 {
-    if {path} is /
-    / /stations
-  }
-}
-aletsch.winds.mobi/static {
-  root /home/windmobile/winds-mobi-client-js/static
-
-  log / /data/var/log/winds.mobi/caddy.log "{combined}" {
-    rotate_size 50 # MB
-    rotate_age  30  # days
-  }
+    redir / /stations/
 }
