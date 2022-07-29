@@ -11,7 +11,7 @@ slf.winds.mobi,
 windline.winds.mobi,
 windspots.winds.mobi
 {
-    root /static/* /home/winds/winds-mobi-client-js/static/
+    root /static/* /home/winds/winds-mobi-client-js/static
     uri strip_prefix /static
     rewrite /stations* /home/winds/winds-mobi-client-js/static/web/stations.html
     file_server
@@ -34,4 +34,22 @@ windspots.winds.mobi
     }
 
     redir / /stations/
+
+    log {
+        output file /data/var/log/access.log {
+            roll_size 500MiB
+            roll_keep 10
+        }
+    }
+}
+
+reports.winds.mobi
+{
+    root * /data/var/www/reports
+    file_server browse
+}
+
+watchtower.winds.mobi
+{
+    reverse_proxy http://localhost:1588
 }
