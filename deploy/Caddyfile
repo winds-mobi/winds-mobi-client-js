@@ -37,8 +37,9 @@ windspots.winds.mobi
 
     log {
         output file /data/var/log/access.log {
-            roll_size 500MiB
-            roll_keep 10
+            roll_size 1GiB
+            roll_keep 30
+            roll_keep_for 2160h
         }
     }
 }
