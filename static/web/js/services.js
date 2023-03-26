@@ -102,7 +102,7 @@ angular.module('windmobile.services', [])
                 return +(Math.round(num + "e+3") + "e-3");
             },
 
-            apiUrl: "https://winds.mobi/api/2.2",
+            apiUrl: "https://winds.mobi/api/2.3",
             apiUserUrl: "https://winds.mobi/user"
         }
     }])

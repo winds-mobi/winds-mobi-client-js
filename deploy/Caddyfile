@@ -9,48 +9,51 @@ pioupiou.winds.mobi,
 romma.winds.mobi,
 slf.winds.mobi,
 windline.winds.mobi,
-windspots.winds.mobi
-{
-    root /static/* /home/winds/winds-mobi-client-js/static
-    uri strip_prefix /static
-    rewrite /stations* /home/winds/winds-mobi-client-js/static/web/stations.html
-    file_server
+windspots.winds.mobi {
+	root /static/* /home/winds/winds-mobi-client-js/static
+	uri strip_prefix /static
+	rewrite /stations* /home/winds/winds-mobi-client-js/static/web/stations.html
+	file_server
 
-    handle_path /api/2/* {
-        reverse_proxy http://localhost:8001
-    }
-    handle_path /api/2.2/* {
-        reverse_proxy http://localhost:8001
-    }
+	handle_path /api/2/* {
+		reverse_proxy http://localhost:8001
+	}
+	handle_path /api/2.2/* {
+		reverse_proxy http://localhost:8001
+	}
+	handle_path /api/2.3/* {
+		reverse_proxy http://localhost:8002
+	}
 
-    handle /user/* {
-        reverse_proxy http://localhost:8006
-    }
-    handle /admin/* {
-        reverse_proxy http://localhost:8006
-    }
-    handle /django-static/* {
-        reverse_proxy http://localhost:8006
-    }
+	handle /user/* {
+		reverse_proxy http://localhost:8006
+	}
+	handle /admin/* {
+		reverse_proxy http://localhost:8006
+	}
+	handle /django-static/* {
+		reverse_proxy http://localhost:8006
+	}
 
-    redir / /stations/
+	redir / /stations/
 
-    log {
-        output file /data/var/log/access.log {
-            roll_size 1GiB
-            roll_keep 30
-            roll_keep_for 2160h
-        }
-    }
+	log {
+		output file /data/var/log/access.log {
+			roll_size 1GiB
+			roll_keep 30
+			roll_keep_for 2160h
+		}
+	}
+	tracing {
+		span proxy
+	}
 }
 
-reports.winds.mobi
-{
-    root * /data/var/www/reports
-    file_server browse
+reports.winds.mobi {
+	root * /data/var/www/reports
+	file_server browse
 }
 
-watchtower.winds.mobi
-{
-    reverse_proxy http://localhost:1588
+watchtower.winds.mobi {
+	reverse_proxy http://localhost:1588
 }
