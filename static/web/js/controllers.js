@@ -522,6 +522,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 params['within-pt1-lon'] = bounds.getNorthEast().lng;
                 params['within-pt2-lat'] = bounds.getSouthWest().lat;
                 params['within-pt2-lon'] = bounds.getSouthWest().lng;
+                params['is-highest-duplicates-rating'] = true;
 
                 // Ask for ~15 markers for 300x300 pixels
                 params['limit'] = Math.round($(window).width() * $(window).height() * (15 / 90000));
