@@ -1,19 +1,11 @@
-winds.mobi - real-time weather observations
-===========================================
-
-[![Follow us on https://www.facebook.com/WindsMobi/](https://img.shields.io/badge/facebook-follow_us-blue)](https://www.facebook.com/WindsMobi/)
-
-[winds.mobi](http://winds.mobi): Paraglider pilot, kitesurfer, check real-time weather conditions of your favorite spots
-on your smartphone, your tablet or your computer.
-
 winds-mobi-client-js
---------------------
+====================
 
-Angular 1 web client
+This is the current [winds.mobi](https://winds.mobi) web client but this project uses deprecated frameworks and tools like [AngularJS](https://angularjs.org) and is **no more actively maintained**. If you would like to share your own version that will eventually replace this client, please open an issue that presents your project.
 
 ### How to build
 
-- `nvm use`
+- `asdf install`
 - `npm install`
 - `gulp` or `gulp --production`
 
