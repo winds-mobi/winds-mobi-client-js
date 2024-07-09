@@ -643,15 +643,14 @@ angular.module('windmobile.controllers', ['windmobile.services'])
 
             this.map = new mapboxgl.Map({
                 container: 'wdm-map',
-                style: 'mapbox://styles/mapbox/outdoors-v11',
-                maxPitch: 65,
+                maxPitch: 75,
             });
             var nav = new mapboxgl.NavigationControl({
                 visualizePitch: true
             });
             this.map.addControl(nav, 'top-right');
 
-            this.map.on('load', function () {
+            this.map.on('style.load', function () {
                 self.map.addSource('mapbox-dem', {
                     'type': 'raster-dem',
                     'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
@@ -659,22 +658,34 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 });
                 self.map.setTerrain({'source': 'mapbox-dem', 'exaggeration': 1.1});
             });
+            $scope.$watch('style', function (value) {
+                self.map.setStyle('mapbox://styles/mapbox/' + value);
+            });
+            $scope.style = 'outdoors-v12'
+            var styleDiv = $compile($templateCache.get('_style.html'))($scope);
+            // Simulate an ES6 class
+            var MapStyleControl = function() {};
+            MapStyleControl.prototype.onAdd = function() {
+                this.container = styleDiv[0];
+                return this.container;
+            }
+            MapStyleControl.prototype.onRemove = function() {
+                this.container.parentNode.removeChild(this.container);
+            }
+            this.map.addControl(new MapStyleControl(), 'top-left');
 
             this.getLegendColorStyle = function (value) {
                 return {color: utils.getColorInRange(value, 50)};
             };
             var legendDiv = $compile($templateCache.get('_legend.html'))($scope);
-
             // Simulate an ES6 class
             var MapLegendControl = function() {};
-            MapLegendControl.prototype.onAdd = function(map) {
-                this.map = map;
+            MapLegendControl.prototype.onAdd = function() {
                 this.container = legendDiv[0];
                 return this.container;
             }
-            MapLegendControl.prototype.onRemove = function(map) {
+            MapLegendControl.prototype.onRemove = function() {
                 this.container.parentNode.removeChild(this.container);
-                this.map = undefined;
             }
             this.map.addControl(new MapLegendControl(), 'bottom-right');
 

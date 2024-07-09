@@ -20,6 +20,8 @@
         'Maximum': "Maximum",
         'Summit': "Berg",
         'Plain': "Tal",
+        'Relief': "Erleichterung",
+        'Satellite': "Satellite",
         'no recent data': "keine aktuellen Daten",
         'meters': "Meter",
         'Location service is disabled': "Lokalisierung ist ausgeschaltet",

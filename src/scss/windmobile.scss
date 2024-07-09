@@ -379,6 +379,15 @@ $humidity-color: $air-color;
     }
 }
 
+.wdm-map-style {
+    padding: 3px;
+
+    input[type="radio"] {
+        margin-top: -1px;
+        vertical-align: middle;
+    }
+}
+
 #wdm-help {
     @media (max-width: 550px) {
         width: 350px;

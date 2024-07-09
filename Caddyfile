@@ -1,4 +1,4 @@
-http://localhost:8000 {
+:8000 {
 	root /static/* ./static
 	uri strip_prefix /static
 	rewrite /stations* ./static/web/stations.html
@@ -19,4 +19,8 @@ http://localhost:8000 {
 	}
 
 	redir / /stations/
+
+	log {
+        format console
+    }
 }

@@ -47,6 +47,15 @@
     </div>
 </script>
 
+<script type="text/ng-template" id="_style.html">
+    <div class="mapboxgl-ctrl mapboxgl-ctrl-group wdm-map-style">
+        <input id="outdoors" type="radio" value="outdoors-v12" ng-model="style">
+        <label for="outdoors"><span translate>Relief</span></label>
+        <input id="satellite" type="radio" value="satellite-v9" ng-model="style">
+        <label for="satellite"><span translate>Satellite</span></label>
+    </div>
+</script>
+
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header" ng-include="'/static/web/templates/_menu-search.html'">
     </header>

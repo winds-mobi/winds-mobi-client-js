@@ -20,6 +20,8 @@
         'Maximum': "Maximum",
         'Summit': "Summit",
         'Plain': "Plain",
+        'Relief': "Relief",
+        'Satellite': "Satellite",
         'no recent data': "no recent data",
         'meters': "meters",
         'Location service is disabled': "Location service is disabled",
