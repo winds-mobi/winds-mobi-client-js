@@ -674,6 +674,33 @@ angular.module('windmobile.controllers', ['windmobile.services'])
             }
             this.map.addControl(new MapStyleControl(), 'top-left');
 
+            // Simulate an ES6 class
+            var Map3dControl = function() {};
+            Map3dControl.prototype.onAdd = function(map) {
+                var _this = this;
+                this.btn = document.createElement('button');
+                this.btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-pitchtoggle-3d';
+                this.btn.type = 'button';
+                this.btn.onclick = function() {
+                    if (map.getPitch() === 0) {
+                        map.easeTo({pitch: 45, bearing: -20});
+                        _this.btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-pitchtoggle-2d';
+                    } else {
+                        map.easeTo({pitch: 0, bearing: 0});
+                        _this.btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-pitchtoggle-3d';
+                    }
+                };
+
+                this.container = document.createElement('div');
+                this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+                this.container.appendChild(this.btn);
+                return this.container;
+            }
+            Map3dControl.prototype.onRemove = function() {
+                this.container.parentNode.removeChild(this.container);
+            }
+            this.map.addControl(new Map3dControl(), 'top-right');
+
             this.getLegendColorStyle = function (value) {
                 return {color: utils.getColorInRange(value, 50)};
             };
@@ -907,7 +934,9 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 });
             };
             this.earthLink = function (station) {
-                return 'https://earth.google.com/web/search/' + station.loc.coordinates[1] + ',' + station.loc.coordinates[0];
+                if (station.loc) {
+                    return 'https://earth.google.com/web/search/' + station.loc.coordinates[1] + ',' + station.loc.coordinates[0];
+                }
             };
 
             this.doDetail();
