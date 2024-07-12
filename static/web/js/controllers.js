@@ -654,14 +654,17 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 self.map.addSource('mapbox-dem', {
                     'type': 'raster-dem',
                     'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-                    'tileSize': 512,
                 });
                 self.map.setTerrain({'source': 'mapbox-dem', 'exaggeration': 1.1});
             });
-            $scope.$watch('style', function (value) {
-                self.map.setStyle('mapbox://styles/mapbox/' + value);
+            this.styles = {
+                outdoors: 'mapbox://styles/ysavary/clyipq8s100zs01qphziieyrx',
+                satellite: 'mapbox://styles/ysavary/clyiq3qc900zv01qpexnt4djy',
+            }
+            $scope.$watch('main.style', function (style) {
+                self.map.setStyle(self.styles[style]);
             });
-            $scope.style = 'outdoors-v12'
+            this.style = 'outdoors';
             var styleDiv = $compile($templateCache.get('_style.html'))($scope);
             // Simulate an ES6 class
             var MapStyleControl = function() {};
@@ -674,32 +677,28 @@ angular.module('windmobile.controllers', ['windmobile.services'])
             }
             this.map.addControl(new MapStyleControl(), 'top-left');
 
+            this.pitchButtonName = '3d';
+            this.updatePitchButton = function (pitch) {
+                self.pitchButtonName = pitch === 0 ? '3d' : '2d';
+            }
+            this.togglePitch = function() {
+                var newValue = self.map.getPitch() === 0
+                    ? {pitch: 45, bearing: self.map.getBearing() - 20}
+                    : {pitch: 0, bearing: self.map.getBearing() + 20};
+                self.map.easeTo(newValue);
+                self.updatePitchButton(newValue.pitch);
+            }
+            var pitchButton = $compile($templateCache.get('_pitch.html'))($scope);
             // Simulate an ES6 class
-            var Map3dControl = function() {};
-            Map3dControl.prototype.onAdd = function(map) {
-                var _this = this;
-                this.btn = document.createElement('button');
-                this.btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-pitchtoggle-3d';
-                this.btn.type = 'button';
-                this.btn.onclick = function() {
-                    if (map.getPitch() === 0) {
-                        map.easeTo({pitch: 45, bearing: -20});
-                        _this.btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-pitchtoggle-2d';
-                    } else {
-                        map.easeTo({pitch: 0, bearing: 0});
-                        _this.btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-pitchtoggle-3d';
-                    }
-                };
-
-                this.container = document.createElement('div');
-                this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-                this.container.appendChild(this.btn);
+            var PitchControl = function() {};
+            PitchControl.prototype.onAdd = function(map) {
+                this.container = pitchButton[0];
                 return this.container;
             }
-            Map3dControl.prototype.onRemove = function() {
+            PitchControl.prototype.onRemove = function() {
                 this.container.parentNode.removeChild(this.container);
             }
-            this.map.addControl(new Map3dControl(), 'top-right');
+            this.map.addControl(new PitchControl(), 'top-right');
 
             this.getLegendColorStyle = function (value) {
                 return {color: utils.getColorInRange(value, 50)};
@@ -722,6 +721,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     self.geoStatus = self.getGeoStatus();
                     clearTimeout(timer);
                     timer = setTimeout(function () {
+                        self.updatePitchButton(self.map.getPitch());
                         self.doSearch();
                     }, 500);
                 }
@@ -934,7 +934,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 });
             };
             this.earthLink = function (station) {
-                if (station.loc) {
+                if (station) {
                     return 'https://earth.google.com/web/search/' + station.loc.coordinates[1] + ',' + station.loc.coordinates[0];
                 }
             };

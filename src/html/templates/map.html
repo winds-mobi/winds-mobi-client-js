@@ -26,6 +26,21 @@
     </div>
 </script>
 
+<script type="text/ng-template" id="_style.html">
+    <div class="mapboxgl-ctrl mapboxgl-ctrl-group wdm-map-style">
+        <input id="outdoors" type="radio" value="outdoors" ng-model="main.style">
+        <label for="outdoors"><span translate>Relief</span></label>
+        <input id="satellite" type="radio" value="satellite" ng-model="main.style">
+        <label for="satellite"><span translate>Satellite</span></label>
+    </div>
+</script>
+
+<script type="text/ng-template" id="_pitch.html">
+    <div class="mapboxgl-ctrl mapboxgl-ctrl-group">
+        <button class="mapboxgl-ctrl-icon mapboxgl-ctrl-pitchtoggle-{{main.pitchButtonName}}" ng-click="main.togglePitch()"></button>
+    </div>
+</script>
+
 <script type="text/ng-template" id="_legend.html">
     <div class="wdm-map-legend">
         <table>
@@ -44,15 +59,6 @@
             <tr><td ng-style="main.getLegendColorStyle(45);" class="wdm-map-hideable">45 km/h</td></tr>
             <tr><td ng-style="main.getLegendColorStyle(50);">>50 km/h</td></tr>
         </table>
-    </div>
-</script>
-
-<script type="text/ng-template" id="_style.html">
-    <div class="mapboxgl-ctrl mapboxgl-ctrl-group wdm-map-style">
-        <input id="outdoors" type="radio" value="outdoors-v12" ng-model="style">
-        <label for="outdoors"><span translate>Relief</span></label>
-        <input id="satellite" type="radio" value="satellite-v9" ng-model="style">
-        <label for="satellite"><span translate>Satellite</span></label>
     </div>
 </script>
 
