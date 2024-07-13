@@ -643,38 +643,75 @@ angular.module('windmobile.controllers', ['windmobile.services'])
 
             this.map = new mapboxgl.Map({
                 container: 'wdm-map',
-                style: 'mapbox://styles/mapbox/outdoors-v11',
-                maxPitch: 65,
+                maxPitch: 75,
             });
             var nav = new mapboxgl.NavigationControl({
                 visualizePitch: true
             });
             this.map.addControl(nav, 'top-right');
 
-            this.map.on('load', function () {
+            this.map.on('style.load', function () {
                 self.map.addSource('mapbox-dem', {
                     'type': 'raster-dem',
                     'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-                    'tileSize': 512,
                 });
                 self.map.setTerrain({'source': 'mapbox-dem', 'exaggeration': 1.1});
             });
+            this.styles = {
+                outdoors: 'mapbox://styles/ysavary/clyipq8s100zs01qphziieyrx',
+                satellite: 'mapbox://styles/ysavary/clyiq3qc900zv01qpexnt4djy',
+            }
+            $scope.$watch('main.style', function (style) {
+                self.map.setStyle(self.styles[style]);
+            });
+            this.style = 'outdoors';
+            var styleDiv = $compile($templateCache.get('_style.html'))($scope);
+            // Simulate an ES6 class
+            var MapStyleControl = function() {};
+            MapStyleControl.prototype.onAdd = function() {
+                this.container = styleDiv[0];
+                return this.container;
+            }
+            MapStyleControl.prototype.onRemove = function() {
+                this.container.parentNode.removeChild(this.container);
+            }
+            this.map.addControl(new MapStyleControl(), 'top-left');
+
+            this.pitchButtonName = '3d';
+            this.updatePitchButton = function (pitch) {
+                self.pitchButtonName = pitch === 0 ? '3d' : '2d';
+            }
+            this.togglePitch = function() {
+                var newValue = self.map.getPitch() === 0
+                    ? {pitch: 45, bearing: self.map.getBearing() - 20}
+                    : {pitch: 0, bearing: self.map.getBearing() + 20};
+                self.map.easeTo(newValue);
+                self.updatePitchButton(newValue.pitch);
+            }
+            var pitchButton = $compile($templateCache.get('_pitch.html'))($scope);
+            // Simulate an ES6 class
+            var PitchControl = function() {};
+            PitchControl.prototype.onAdd = function(map) {
+                this.container = pitchButton[0];
+                return this.container;
+            }
+            PitchControl.prototype.onRemove = function() {
+                this.container.parentNode.removeChild(this.container);
+            }
+            this.map.addControl(new PitchControl(), 'top-right');
 
             this.getLegendColorStyle = function (value) {
                 return {color: utils.getColorInRange(value, 50)};
             };
             var legendDiv = $compile($templateCache.get('_legend.html'))($scope);
-
             // Simulate an ES6 class
             var MapLegendControl = function() {};
-            MapLegendControl.prototype.onAdd = function(map) {
-                this.map = map;
+            MapLegendControl.prototype.onAdd = function() {
                 this.container = legendDiv[0];
                 return this.container;
             }
-            MapLegendControl.prototype.onRemove = function(map) {
+            MapLegendControl.prototype.onRemove = function() {
                 this.container.parentNode.removeChild(this.container);
-                this.map = undefined;
             }
             this.map.addControl(new MapLegendControl(), 'bottom-right');
 
@@ -684,6 +721,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                     self.geoStatus = self.getGeoStatus();
                     clearTimeout(timer);
                     timer = setTimeout(function () {
+                        self.updatePitchButton(self.map.getPitch());
                         self.doSearch();
                     }, 500);
                 }
@@ -770,7 +808,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 // Force highcharts to resize
                 $('.wdm-wind-chart').highcharts().reflow();
                 var params = {
-                    duration: 432000,
+                    duration: 5 * 24 * 3600 + 3600,
                     keys: ['w-dir', 'w-avg', 'w-max']
                 };
                 $http({
@@ -785,7 +823,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 // Force highcharts to resize
                 $('.wdm-air-chart').highcharts().reflow();
                 var params = {
-                    duration: 432000,
+                    duration: 5 * 24 * 3600 + 3600,
                     keys: ['temp', 'hum', 'rain']
                 };
                 $http({
@@ -896,7 +934,9 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 });
             };
             this.earthLink = function (station) {
-                return 'https://earth.google.com/web/search/' + station.loc.coordinates[1] + ',' + station.loc.coordinates[0];
+                if (station) {
+                    return 'https://earth.google.com/web/search/' + station.loc.coordinates[1] + ',' + station.loc.coordinates[0];
+                }
             };
 
             this.doDetail();

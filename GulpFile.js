@@ -47,19 +47,6 @@ gulp.task('sass', function () {
 
 gulp.task('html', function () {
     gulp.src('src/html/**/*.html')
-        // .pipe(gutil.env.production ?
-        //     cdnizer({
-        //         defaultCDNBase: '//files-windsmobi.netdna-ssl.com',
-        //         allowRev: true,
-        //         allowMin: true,
-        //         files: [
-        //             '/static/web/js/windmobile.js',
-        //             '/static/web/css/windmobile.css',
-        //             '/static/web/manifest.json',
-        //             '/static/web/img/*.*'
-        //         ]
-        //     }) :
-        //     gutil.noop())
         .pipe(gulp.dest('static/web/'));
 });
 
