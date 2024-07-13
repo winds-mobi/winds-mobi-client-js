@@ -808,7 +808,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 // Force highcharts to resize
                 $('.wdm-wind-chart').highcharts().reflow();
                 var params = {
-                    duration: 432000,
+                    duration: 5 * 24 * 3600 + 3600,
                     keys: ['w-dir', 'w-avg', 'w-max']
                 };
                 $http({
@@ -823,7 +823,7 @@ angular.module('windmobile.controllers', ['windmobile.services'])
                 // Force highcharts to resize
                 $('.wdm-air-chart').highcharts().reflow();
                 var params = {
-                    duration: 432000,
+                    duration: 5 * 24 * 3600 + 3600,
                     keys: ['temp', 'hum', 'rain']
                 };
                 $http({
