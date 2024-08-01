@@ -36,11 +36,34 @@
                     <svg class="wdm-wind-dir-chart" style="float:right;width:90px;height:90px;" viewBox="0 0 100 100" data-scope-watch="detail.stationHistoric"></svg>
                     <div style="clear:both;"></div>
                     <div class="wdm-title wdm-wind-text-color"><span translate>Wind</span> - <span translate>last hour</span></div>
-                    <div class="wdm-wind-hour" style="clear:left;">
-                        <div><span class="wdm-label" translate>Minimum</span><span class="wdm-wind-hour-value" style="clear:both;float:right;">{{ detail.stationHistoric.lastHour.min.toFixed(1) }}<span class="wdm-unit" translate>km/h</span></span></div>
-                        <div><span class="wdm-label" translate>Mean</span><span class="wdm-wind-hour-value" style="clear:both;float:right;">{{ detail.stationHistoric.lastHour.mean.toFixed(1) }}<span class="wdm-unit" translate>km/h</span></span></div>
-                        <div><span class="wdm-label" translate>Maximum</span><span class="wdm-wind-hour-value" style="clear:both;float:right;">{{ detail.stationHistoric.lastHour.max.toFixed(1) }}<span class="wdm-unit" translate>km/h</span></span></div>
-                    </div>
+                    <table class="wdm-wind-hour">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="wdm-label" translate>Minimum</span>
+                                </td>
+                                <td>
+                                    <span class="wdm-wind-hour-value" style="clear:both;float:right;">{{ detail.stationHistoric.lastHour.min.toFixed(1) }}<span class="wdm-unit" translate>km/h</span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="wdm-label" translate>Mean</span>
+                                </td>
+                                <td>
+                                    <span class="wdm-wind-hour-value" style="clear:both;float:right;">{{ detail.stationHistoric.lastHour.mean.toFixed(1) }}<span class="wdm-unit" translate>km/h</span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="wdm-label" translate>Maximum</span>
+                                </td>
+                                <td>
+                                    <span class="wdm-wind-hour-value" style="clear:both;float:right;">{{ detail.stationHistoric.lastHour.max.toFixed(1) }}<span class="wdm-unit" translate>km/h</span></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div class="wdm-title wdm-air-text-color" translate>Air</div>
                     <div class="wdm-air" style="clear:left;">
                         <div><span class="wdm-label" translate>Temperature</span><span class="wdm-air-value" style="clear:both;float:right;">{{ detail.station.last.temp.toFixed(1) }}<span class="wdm-unit" translate>°C</span></span></div>
