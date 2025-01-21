@@ -16,10 +16,10 @@ windspots.winds.mobi {
 	file_server
 
 	handle_path /api/2/* {
-		reverse_proxy http://localhost:8001
+		reverse_proxy http://localhost:8002
 	}
 	handle_path /api/2.2/* {
-		reverse_proxy http://localhost:8001
+		redir * /api/2.3{uri} permanent
 	}
 	handle_path /api/2.3/* {
 		reverse_proxy http://localhost:8002
@@ -39,9 +39,10 @@ windspots.winds.mobi {
 
 	log {
 		output file /data/var/log/access.log {
-			roll_size 1GiB
-			roll_keep 30
-			roll_keep_for 2160h
+			roll_size 500Mib
+			roll_uncompressed
+			roll_keep 20
+			roll_keep_for 10d
 		}
 	}
 	tracing {
@@ -52,6 +53,10 @@ windspots.winds.mobi {
 reports.winds.mobi {
 	root * /data/var/www/reports
 	file_server browse
+}
+
+cadvisor.winds.mobi {
+	reverse_proxy http://localhost:8011
 }
 
 watchtower.winds.mobi {
