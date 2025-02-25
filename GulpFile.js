@@ -37,7 +37,7 @@ gulp.task('js', function () {
 
 gulp.task('sass', function () {
     gulp.src('src/scss/*.*')
-        .pipe(sourcemaps.init())
+        .pipe(!gutil.env.production ? sourcemaps.init(): gutil.noop())
         .pipe(sass({
             outputStyle: 'compressed'
         }).on('error', sass.logError))
