@@ -1,0 +1,29 @@
+{
+	debug
+}
+:8000 {
+	root ../winds-mobi-client-js/static
+	uri strip_prefix /static
+	rewrite /stations* /web/stations.html
+	file_server
+
+	handle_path /api/2.3/* {
+		reverse_proxy http://localhost:8001
+	}
+
+	handle /user/* {
+		reverse_proxy http://localhost:8006
+	}
+	handle /admin/* {
+		reverse_proxy http://localhost:8006
+	}
+	handle /django-static/* {
+		reverse_proxy http://localhost:8006
+	}
+
+	redir / /stations/
+
+	log {
+		format console
+	}
+}

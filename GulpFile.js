@@ -47,6 +47,18 @@ gulp.task('sass', function () {
 
 gulp.task('html', function () {
     gulp.src('src/html/**/*.html')
+        .pipe(gutil.env.production ?
+            cdnizer({
+                defaultCDNBase: '//winds-mobi.b-cdn.net',
+                allowRev: true,
+                allowMin: true,
+                files: [
+                    '/static/web/js/windmobile.js',
+                    '/static/web/css/windmobile.css',
+                    '/static/web/img/*.*'
+                ]
+            }) :
+            gutil.noop())
         .pipe(gulp.dest('static/web/'));
 });
 
