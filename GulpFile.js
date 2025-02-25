@@ -53,8 +53,8 @@ gulp.task('html', function () {
                 allowRev: true,
                 allowMin: true,
                 files: [
-                    '/static/web/js/windmobile.js',
-                    '/static/web/css/windmobile.css',
+                    '/static/web/js/windmobile.js*',
+                    '/static/web/css/windmobile.css*',
                     '/static/web/img/*.*'
                 ]
             }) :
