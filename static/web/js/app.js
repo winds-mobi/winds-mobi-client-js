@@ -75,7 +75,7 @@ angular.module('windmobile', [require('angular-sanitize'), require('angular-ui-r
                     },
                     resolve: {
                         loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('/static/web/lib/highstock.js');
+                            return $ocLazyLoad.load('https://winds-mobi.b-cdn.net/static/web/lib/highstock.js');
                         }]
                     }
                 })
@@ -107,7 +107,7 @@ angular.module('windmobile', [require('angular-sanitize'), require('angular-ui-r
                     },
                     resolve: {
                         loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('/static/web/lib/highstock.js');
+                            return $ocLazyLoad.load('https://winds-mobi.b-cdn.net/static/web/lib/highstock.js');
                         }]
                     }
                 })
